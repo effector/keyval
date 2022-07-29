@@ -1,6 +1,6 @@
 import {createStore, createEvent, sample} from 'effector'
 
-import type {KV, Key, ListApi, Selection} from './types'
+import type {KV, Key, ListApi, SelectionSwitch} from './types'
 import {createIndex} from './createIndex'
 
 export function createListApi<Item, KeyField extends keyof Item>({
@@ -19,7 +19,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
       return keys.some((key, index) => oldKeys[index] !== key)
     },
   })
-  $keys.on($kv, (kv) => (Object.keys(kv) as unknown) as Array<Item[KeyField]>)
+  $keys.on($kv, (kv) => Object.keys(kv) as unknown as Array<Item[KeyField]>)
 
   const setAll = createEvent<{key: keyof Item; value: Item[keyof Item]}>()
   $kv.on(setAll, (kv, {key, value}) => {
@@ -109,7 +109,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
     removeItem<ChildField extends keyof Item>(config?: {
       removeChilds: {
         childField: ChildField
-        selection?: Selection<Item, ChildField, any>
+        selection?: SelectionSwitch<Item, ChildField, any>
       }
     }) {
       if (!config) {
@@ -176,7 +176,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
       })
     },
     addItemTree<Input, RawInput = Input>({
-      normalize = (item: RawInput) => (item as unknown) as Input,
+      normalize = (item: RawInput) => item as unknown as Input,
       convertInput,
       getChilds,
     }: {
@@ -199,7 +199,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
         const value = convertInput(input, childOf)
         const childs = getChilds(input)
         const itemKey = keygen(value)
-        const item = (value as unknown) as Item
+        const item = value as unknown as Item
         item[key] = itemKey
         result.push({key: itemKey, value: item})
         arrifyIterate<RawInput>(childs, (child) =>

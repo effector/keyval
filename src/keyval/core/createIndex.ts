@@ -1,6 +1,6 @@
 import {combine} from 'effector'
 
-import type {ListApi, Selection, IndexApi} from './types'
+import type {ListApi, SelectionSwitch, IndexApi} from './types'
 
 export function createIndex<T, K extends keyof T, ID extends keyof T>({
   kv,
@@ -9,7 +9,7 @@ export function createIndex<T, K extends keyof T, ID extends keyof T>({
 }: {
   kv: ListApi<T, ID>
   field: K
-  selection?: Selection<T, K, any>
+  selection?: SelectionSwitch<T, K, any>
 }): IndexApi<T, K, ID> {
   const fn = (map: Record<string, T>, items?: T[]) => {
     const result = new Map<T[K], T[ID][]>()
@@ -28,7 +28,7 @@ export function createIndex<T, K extends keyof T, ID extends keyof T>({
   }
   const groups = selection
     ? combine(kv.state.store, selection.state.items, fn)
-    : kv.state.store.map(map => fn(map))
+    : kv.state.store.map((map) => fn(map))
   return {
     kv,
     field,

@@ -1,6 +1,7 @@
 import {createEvent, createStore, sample} from 'effector'
 import {
   createListApi,
+  createSwitch,
   createSelection,
   createItemApi,
   createIndex,
@@ -29,12 +30,16 @@ export const addTodo = todos.addItemTree({
 export const toggleAll = todos.setAll('completed')
 export const clearCompleted = todos.removeByField('completed')
 
-export const completedSelection = createSelection({
+const activeTodos = createSelection(todos, ({completed}) => !completed)
+const completedTodos = createSelection(todos, ({completed}) => completed)
+const allTodos = createSelection(todos, () => true)
+
+export const taskTreeSelection = createSwitch({
   kv: todos,
   cases: {
-    active: ({completed}) => !completed,
-    completed: ({completed}) => completed,
-    all: () => true,
+    active: activeTodos,
+    completed: completedTodos,
+    all: allTodos,
   },
   initialCase: 'all',
 })
@@ -43,7 +48,7 @@ export const subtasksVisibleAmount = createAggregate({
   kv: todos,
   aggregateField: 'childOf',
   fn: (childs) => childs.length,
-  selection: completedSelection,
+  selection: taskTreeSelection,
   defaultValue: 0,
 })
 
@@ -70,12 +75,12 @@ export const subtasksTotalAmount = createAggregate({
 //   defaultValue: 0,
 // })
 
-export const $count = completedSelection.state.size
+export const $count = taskTreeSelection.state.size
 
 export const todoSelectedChildOf = createIndex({
   kv: todos,
   field: 'childOf',
-  selection: completedSelection,
+  selection: taskTreeSelection,
 })
 
 export const todoItemApi = createItemApi({
@@ -120,6 +125,12 @@ addTodo([
   'React',
   {
     title: 'Effector',
-    subtasks: ['subtask #1', 'subtask #2'],
+    subtasks: [
+      {
+        title: 'subtask #1',
+        subtasks: ['Foo', 'Bar'],
+      },
+      'subtask #2',
+    ],
   },
 ])

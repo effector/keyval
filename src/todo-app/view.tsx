@@ -5,7 +5,7 @@ import {useItemState, useItemApi, useIndex, useAggregate} from '../keyval/react'
 
 import {
   $count,
-  completedSelection,
+  taskTreeSelection,
   addTodo,
   clearCompleted,
   toggleAll,
@@ -87,10 +87,10 @@ export const TodoCount = () => {
   )
 }
 export const TodoFilters = () => {
-  const mode = useStore(completedSelection.state.currentCase)
-  const onAll = () => completedSelection.api.all()
-  const onActive = () => completedSelection.api.active()
-  const onCompleted = () => completedSelection.api.completed()
+  const mode = useStore(taskTreeSelection.state.currentCase)
+  const onAll = () => taskTreeSelection.api.all()
+  const onActive = () => taskTreeSelection.api.active()
+  const onCompleted = () => taskTreeSelection.api.completed()
   return (
     <ul data-filter-mode={mode}>
       <li>
