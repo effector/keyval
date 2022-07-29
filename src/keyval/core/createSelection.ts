@@ -26,21 +26,27 @@ export function createSwitch<
         ? createSelection(kv, selectionOrFn)
         : (selectionOrFn as Selection<Item>)
   })
+  let currentConsumerId: number | void
   forIn(normCases, (selection, field) => {
     const activator = createEvent<void>()
     $currentCase.on(activator, () => field)
     caseApi[field] = activator
+    selection.consumersTotal += 1
+    const consumerId = selection.consumersTotal
+    if (field === initialCase) currentConsumerId = consumerId
     split({
       source: $currentCase,
       match: (currentCase) =>
         currentCase === field ? 'activate' : 'deactivate',
       cases: {
-        activate: selection.api.addConsumer,
-        deactivate: selection.api.removeConsumer,
+        activate: selection.api.addConsumer.prepend(() => consumerId),
+        deactivate: selection.api.removeConsumer.prepend(() => consumerId)
       },
     })
   })
-  if (initialCase in normCases) normCases[initialCase].api.addConsumer()
+  if (currentConsumerId) {
+    normCases[initialCase].api.addConsumer(currentConsumerId)
+  }
   const caseNames = Object.keys(normCases) as Array<keyof Shape>
   const caseValues = Object.values(normCases)
   const $list = combine(
@@ -66,11 +72,11 @@ export function createSelection<Item, KeyField extends keyof Item>(
   kv: ListApi<Item, KeyField>,
   fn: (item: Item) => boolean,
 ): Selection<Item> {
-  const addConsumer = createEvent()
-  const removeConsumer = createEvent()
+  const addConsumer = createEvent<number>()
+  const removeConsumer = createEvent<number>()
   const activated = createEvent()
-  const $consumersAmount = createStore(0)
-  const $active = $consumersAmount.map((amount) => amount > 0)
+  const $consumers = createStore<number[]>([])
+  const $active = $consumers.map((consumers) => consumers.length > 0)
   const $items = createStore<Item[]>([], {updateFilter: areArraysDifferent})
   const $size = $items.map((items) => items.length)
   sample({
@@ -85,13 +91,21 @@ export function createSelection<Item, KeyField extends keyof Item>(
     target: $items,
     fn: (kv) => Object.values(kv).filter(fn),
   })
-  $consumersAmount.on(addConsumer, (amount) => amount + 1)
-  $consumersAmount.on(removeConsumer, (amount) => amount - 1)
+  $consumers.on(addConsumer, (consumers, id) => {
+    if (!consumers.includes(id)) return [...consumers, id]
+  })
+  $consumers.on(removeConsumer, (consumers, id) => {
+    if (consumers.includes(id)) {
+      const result = [...consumers]
+      result.splice(result.indexOf(id), 1)
+      return result
+    }
+  })
 
   return {
     state: {
       active: $active,
-      consumersAmount: $consumersAmount,
+      consumers: $consumers,
       items: $items,
       size: $size,
     },
@@ -100,6 +114,7 @@ export function createSelection<Item, KeyField extends keyof Item>(
       removeConsumer,
       activated,
     },
+    consumersTotal: 0,
     fn,
   }
 }
