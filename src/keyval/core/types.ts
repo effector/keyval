@@ -88,16 +88,17 @@ export type SelectionSwitch<
 export type Selection<Item> = {
   state: Stores<{
     active: boolean
-    consumersAmount: number
+    consumers: number[]
     items: Item[]
     size: number
   }>
   api: Events<{
-    addConsumer: void
-    removeConsumer: void
+    addConsumer: number
+    removeConsumer: number
     activated: void
   }>
   fn: (item: Item) => boolean
+  consumersTotal: number
 }
 
 export type ItemApi<T, ItemTriggers extends Record<string, unknown>> = {
