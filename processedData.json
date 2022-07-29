@@ -1,0 +1,1315 @@
+{
+  "compactData": {
+    "attribute": [
+      {
+        "id": "weight",
+        "attributeId": "weight",
+        "name": "Weight",
+        "type": "number",
+        "unit": "g"
+      },
+      {
+        "id": "chargingConnectorType",
+        "attributeId": "chargingConnectorType",
+        "name": "Charging Connector Type",
+        "type": "id",
+        "unit": null,
+        "attributes": {
+          "chargingConnectorType": {
+            "ref": "lightning",
+            "value": "Lightning"
+          }
+        }
+      },
+      {
+        "id": "cpu",
+        "attributeId": "cpu",
+        "name": "CPU",
+        "type": "id",
+        "unit": null,
+        "attributes": {
+          "cpu": {
+            "ref": "intelCorei711800H",
+            "value": "Intel Core i7 11800H"
+          }
+        }
+      },
+      {
+        "id": "laptopVendor",
+        "attributeId": "laptopVendor",
+        "name": "LaptopVendor",
+        "type": "id",
+        "unit": null,
+        "attributes": {
+          "laptopVendor": {
+            "ref": "asus",
+            "value": "Asus"
+          }
+        }
+      },
+      {
+        "id": "internalMemory",
+        "attributeId": "internalMemory",
+        "name": "Internal Memory",
+        "type": "number",
+        "unit": "GB"
+      },
+      {
+        "id": "mainCameraResolution",
+        "attributeId": "mainCameraResolution",
+        "name": "Main Camera Resolution",
+        "type": "id",
+        "unit": "MP",
+        "attributes": {
+          "mainCameraResolution": {
+            "ref": "13to199",
+            "value": "13 to 19.9"
+          }
+        }
+      },
+      {
+        "id": "operatingSystem",
+        "attributeId": "operatingSystem",
+        "name": "Operating System",
+        "type": "id",
+        "unit": null,
+        "attributes": {
+          "operatingSystem": {
+            "ref": "iOS14",
+            "value": "iOS 14"
+          }
+        }
+      },
+      {
+        "id": "hddSize",
+        "attributeId": "hddSize",
+        "name": "HDD Size",
+        "type": "number",
+        "unit": "Gb"
+      },
+      {
+        "id": "wirelesscharging",
+        "attributeId": "wirelesscharging",
+        "name": "Wireless charging",
+        "type": "boolean",
+        "unit": null
+      },
+      {
+        "id": "ssdSize",
+        "attributeId": "ssdSize",
+        "name": "SSD Size",
+        "type": "number",
+        "unit": "Gb"
+      },
+      {
+        "id": "displaySize",
+        "attributeId": "displaySize",
+        "name": "Display Size",
+        "type": "number",
+        "unit": "inches"
+      },
+      {
+        "id": "cellular",
+        "attributeId": "cellular",
+        "name": "Cellular",
+        "type": "string",
+        "unit": null,
+        "attributes": {
+          "cellular": {
+            "ref": "5g",
+            "value": "5G"
+          }
+        }
+      },
+      {
+        "id": "ram",
+        "attributeId": "ram",
+        "name": "RAM",
+        "type": "number",
+        "unit": "Gb"
+      },
+      {
+        "id": "gpu",
+        "attributeId": "gpu",
+        "name": "GPU",
+        "type": "id",
+        "unit": null,
+        "attributes": {
+          "gpu": {
+            "ref": "nvidiaGeForceRTX3080",
+            "value": "NVIDIA® GeForce RTX™ 3080"
+          }
+        }
+      },
+      {
+        "id": "smartphoneVendor",
+        "attributeId": "smartphoneVendor",
+        "name": "Smartphone Vendor",
+        "type": "id",
+        "unit": null,
+        "attributes": {
+          "smartphoneVendor": {
+            "ref": "apple",
+            "value": "Apple"
+          }
+        }
+      },
+      {
+        "id": "screenResolution",
+        "attributeId": "screenResolution",
+        "name": "Screen Resolution",
+        "type": "id",
+        "unit": "px",
+        "attributes": {
+          "screenResolution": {
+            "ref": "2560x14402K",
+            "value": "2560x1440 (2K)"
+          }
+        }
+      }
+    ],
+    "category": [
+      {
+        "id": "laptops",
+        "categoryId": "laptops",
+        "name": "Laptops",
+        "order": 2,
+        "topOrder": 2,
+        "dateTimeCreated": "2021-10-23T12:38:34.000",
+        "dateTimeUpdated": "2021-10-23T12:38:34.000",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "name": "CPU",
+            "type": "id",
+            "unit": null,
+            "order": 4,
+            "mandatory": true
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "name": "LaptopVendor",
+            "type": "id",
+            "unit": null,
+            "order": 1,
+            "mandatory": false
+          },
+          "hddSize": {
+            "ref": "hddSize",
+            "name": "HDD Size",
+            "type": "number",
+            "unit": "Gb",
+            "order": 8,
+            "mandatory": false
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "name": "SSD Size",
+            "type": "number",
+            "unit": "Gb",
+            "order": 7,
+            "mandatory": false
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "name": "Display Size",
+            "type": "number",
+            "unit": "inches",
+            "order": 2,
+            "mandatory": false
+          },
+          "ram": {
+            "ref": "ram",
+            "name": "RAM",
+            "type": "number",
+            "unit": "Gb",
+            "order": 6,
+            "mandatory": false
+          },
+          "gpu": {
+            "ref": "gpu",
+            "name": "GPU",
+            "type": "id",
+            "unit": null,
+            "order": 5,
+            "mandatory": true
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "name": "Screen Resolution",
+            "type": "id",
+            "unit": "px",
+            "order": 3,
+            "mandatory": false
+          }
+        }
+      },
+      {
+        "id": "smartphones",
+        "categoryId": "smartphones",
+        "name": "Smartphones",
+        "order": 1,
+        "topOrder": 1,
+        "dateTimeCreated": "2021-10-23T12:38:34.000",
+        "dateTimeUpdated": "2021-10-23T12:38:34.000",
+        "attributes": {
+          "weight": {
+            "ref": "weight",
+            "name": "Weight",
+            "type": "number",
+            "unit": "g",
+            "order": 7,
+            "mandatory": false
+          },
+          "chargingConnectorType": {
+            "ref": "chargingConnectorType",
+            "name": "Charging Connector Type",
+            "type": "id",
+            "unit": null,
+            "order": 10,
+            "mandatory": true
+          },
+          "internalMemory": {
+            "ref": "internalMemory",
+            "name": "Internal Memory",
+            "type": "number",
+            "unit": "GB",
+            "order": 4,
+            "mandatory": false
+          },
+          "mainCameraResolution": {
+            "ref": "mainCameraResolution",
+            "name": "Main Camera Resolution",
+            "type": "id",
+            "unit": "MP",
+            "order": 6,
+            "mandatory": false
+          },
+          "operatingSystem": {
+            "ref": "operatingSystem",
+            "name": "Operating System",
+            "type": "id",
+            "unit": null,
+            "order": 2,
+            "mandatory": true
+          },
+          "wirelesscharging": {
+            "ref": "wirelesscharging",
+            "name": "Wireless charging",
+            "type": "boolean",
+            "unit": null,
+            "order": 9,
+            "mandatory": false
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "name": "Display Size",
+            "type": "number",
+            "unit": "inches",
+            "order": 8,
+            "mandatory": false
+          },
+          "cellular": {
+            "ref": "cellular",
+            "name": "Cellular",
+            "type": "string",
+            "unit": null,
+            "order": 3,
+            "mandatory": true
+          },
+          "ram": {
+            "ref": "ram",
+            "name": "RAM",
+            "type": "number",
+            "unit": "Gb",
+            "order": 5,
+            "mandatory": false
+          },
+          "smartphoneVendor": {
+            "ref": "smartphoneVendor",
+            "name": "Smartphone Vendor",
+            "type": "id",
+            "unit": null,
+            "order": 1,
+            "mandatory": true
+          }
+        }
+      }
+    ],
+    "product": [
+      {
+        "id": "gs76Stealth11UH218",
+        "productId": "gs76Stealth11UH218",
+        "categoryId": "laptops",
+        "name": "GS76 Stealth 11UH-218",
+        "coverUrl": "https://asset.msi.com/resize/image/global/product/product_16196793760b724636616864c08e8b421169caac6f.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "intelCorei911900H"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "msi"
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 2048
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 17
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 16
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3080"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "3840x21604K"
+          }
+        }
+      },
+      {
+        "id": "x6",
+        "productId": "x6",
+        "categoryId": "laptops",
+        "name": "X 6",
+        "coverUrl": "https://freesvg.org/img/1507730389.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "intelCorei710870H"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "xfake"
+          },
+          "hddSize": {
+            "ref": "hddSize",
+            "value": 1024
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 512
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 16
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 16
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3060"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "1920x1080"
+          }
+        }
+      },
+      {
+        "id": "x1",
+        "productId": "x1",
+        "categoryId": "laptops",
+        "name": "X 1",
+        "coverUrl": "https://freesvg.org/img/1507730389.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "intelCorei710870H"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "xfake"
+          },
+          "hddSize": {
+            "ref": "hddSize",
+            "value": 1048
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 1048
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 15
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 16
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3060"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "1920x1080"
+          }
+        }
+      },
+      {
+        "id": "x4",
+        "productId": "x4",
+        "categoryId": "laptops",
+        "name": "X 4",
+        "coverUrl": "https://freesvg.org/img/1507730389.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "intelCorei710870H"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "xfake"
+          },
+          "hddSize": {
+            "ref": "hddSize",
+            "value": 2048
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 128
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 15
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 8
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3070"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "2560x14402K"
+          }
+        }
+      },
+      {
+        "id": "x3",
+        "productId": "x3",
+        "categoryId": "laptops",
+        "name": "X 3",
+        "coverUrl": "https://freesvg.org/img/1507730389.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "intelCorei911900H"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "xfake"
+          },
+          "hddSize": {
+            "ref": "hddSize",
+            "value": 2048
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 256
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 17
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 32
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3070"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "3840x21604K"
+          }
+        }
+      },
+      {
+        "id": "rogStrixScar17G733ZM",
+        "productId": "rogStrixScar17G733ZM",
+        "categoryId": "laptops",
+        "name": "ROG Strix Scar 17  G733ZM",
+        "coverUrl": "https://dlcdnwebimgs.asus.com/files/media/F984503A-DB7B-4D6A-A7B1-61F6E78FEC34/images/product-01.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "intelCorei912900H"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "asus"
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 2048
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 17
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 32
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3060"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "2560x14402K"
+          }
+        }
+      },
+      {
+        "id": "x2",
+        "productId": "x2",
+        "categoryId": "laptops",
+        "name": "X 2",
+        "coverUrl": "https://freesvg.org/img/1507730389.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "intelCorei711800H"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "xfake"
+          },
+          "hddSize": {
+            "ref": "hddSize",
+            "value": 1024
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 512
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 16
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 32
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3070"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "2560x14402K"
+          }
+        }
+      },
+      {
+        "id": "gp7611UG876",
+        "productId": "gp7611UG876",
+        "categoryId": "laptops",
+        "name": "GP76 11UG-876",
+        "coverUrl": "https://asset.msi.com/resize/image/global/product/product_161949107402acbfdce8a5715ede9b8ea92abd9192.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "intelCorei711800H"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "msi"
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 1024
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 17
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 16
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3070"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "1920x1080"
+          }
+        }
+      },
+      {
+        "id": "ge66Raider10UH417",
+        "productId": "ge66Raider10UH417",
+        "categoryId": "laptops",
+        "name": "GE66 Raider 10UH-417",
+        "coverUrl": "https://asset.msi.com/resize/image/global/product/product_0_20200323163135_5e7873e793b93.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "intelCorei710870H"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "msi"
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 2048
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 15
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 16
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3080"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "1920x1080"
+          }
+        }
+      },
+      {
+        "id": "x7",
+        "productId": "x7",
+        "categoryId": "laptops",
+        "name": "X 7",
+        "coverUrl": "https://freesvg.org/img/1507730389.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "amdRyzen96980HX"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "xfake"
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 2048
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 17
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 32
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3080"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "3840x21604K"
+          }
+        }
+      },
+      {
+        "id": "iphone13Pro128Gb",
+        "productId": "iphone13Pro128Gb",
+        "categoryId": "smartphones",
+        "name": "IPhone 13 Pro 128Gb",
+        "coverUrl": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-pro-max-graphite-select?wid=470&hei=556&fmt=png-alpha&.v=1631652956000",
+        "attributes": {
+          "weight": {
+            "ref": "weight",
+            "value": 206
+          },
+          "chargingConnectorType": {
+            "ref": "chargingConnectorType",
+            "value": "lightning"
+          },
+          "internalMemory": {
+            "ref": "internalMemory",
+            "value": 128
+          },
+          "mainCameraResolution": {
+            "ref": "mainCameraResolution",
+            "value": "8to129"
+          },
+          "operatingSystem": {
+            "ref": "operatingSystem",
+            "value": "iOS15"
+          },
+          "wirelesscharging": {
+            "ref": "wirelesscharging",
+            "value": true
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 6
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 6
+          },
+          "smartphoneVendor": {
+            "ref": "smartphoneVendor",
+            "value": "apple"
+          },
+          "cellular": {
+            "ref": "5g",
+            "value": "5G"
+          }
+        }
+      },
+      {
+        "id": "galaxyNote10",
+        "productId": "galaxyNote10",
+        "categoryId": "smartphones",
+        "name": "Galaxy Note10+",
+        "coverUrl": "https://images.samsung.com/levant/smartphones/galaxy-note10/buy/nonshop/m-img-note10-auraglow-01.png",
+        "attributes": {
+          "weight": {
+            "ref": "weight",
+            "value": 168
+          },
+          "chargingConnectorType": {
+            "ref": "chargingConnectorType",
+            "value": "usbTypeC"
+          },
+          "internalMemory": {
+            "ref": "internalMemory",
+            "value": 256
+          },
+          "mainCameraResolution": {
+            "ref": "mainCameraResolution",
+            "value": "13to199"
+          },
+          "operatingSystem": {
+            "ref": "operatingSystem",
+            "value": "android9"
+          },
+          "wirelesscharging": {
+            "ref": "wirelesscharging",
+            "value": true
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 6
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 8
+          },
+          "smartphoneVendor": {
+            "ref": "smartphoneVendor",
+            "value": "samsung"
+          },
+          "cellular": {
+            "ref": "3g",
+            "value": "3G"
+          }
+        }
+      },
+      {
+        "id": "iphone11128Gb",
+        "productId": "iphone11128Gb",
+        "categoryId": "smartphones",
+        "name": "IPhone 11 128Gb",
+        "coverUrl": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone11-white-select-2019_GEO_EMEA?wid=470&hei=556&fmt=png-alpha&.v=1567021770073",
+        "attributes": {
+          "weight": {
+            "ref": "weight",
+            "value": 194
+          },
+          "chargingConnectorType": {
+            "ref": "chargingConnectorType",
+            "value": "lightning"
+          },
+          "internalMemory": {
+            "ref": "internalMemory",
+            "value": 128
+          },
+          "mainCameraResolution": {
+            "ref": "mainCameraResolution",
+            "value": "8to129"
+          },
+          "operatingSystem": {
+            "ref": "operatingSystem",
+            "value": "iOS13"
+          },
+          "wirelesscharging": {
+            "ref": "wirelesscharging",
+            "value": true
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 6
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 4
+          },
+          "smartphoneVendor": {
+            "ref": "smartphoneVendor",
+            "value": "apple"
+          },
+          "cellular": {
+            "ref": "3g",
+            "value": "3G"
+          }
+        }
+      },
+      {
+        "id": "rogZephyrusDuo16GX650RM",
+        "productId": "rogZephyrusDuo16GX650RM",
+        "categoryId": "laptops",
+        "name": "ROG Zephyrus Duo 16 GX650RM",
+        "coverUrl": "https://dlcdnwebimgs.asus.com/files/media/85F07B68-389E-4C5B-97C7-1C978137DA6C/images/product-01.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "amdRyzen96980HX"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "asus"
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 2048
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 16
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 32
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3060"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "2560x14402K"
+          }
+        }
+      },
+      {
+        "id": "iphone13ProMax256Gb",
+        "productId": "iphone13ProMax256Gb",
+        "categoryId": "smartphones",
+        "name": "IPhone 13 Pro Max 256Gb",
+        "coverUrl": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-pro-max-blue-select?wid=470&hei=556&fmt=png-alpha&.v=1631652955000",
+        "attributes": {
+          "weight": {
+            "ref": "weight",
+            "value": 238
+          },
+          "chargingConnectorType": {
+            "ref": "chargingConnectorType",
+            "value": "lightning"
+          },
+          "internalMemory": {
+            "ref": "internalMemory",
+            "value": 256
+          },
+          "mainCameraResolution": {
+            "ref": "mainCameraResolution",
+            "value": "8to129"
+          },
+          "operatingSystem": {
+            "ref": "operatingSystem",
+            "value": "iOS15"
+          },
+          "wirelesscharging": {
+            "ref": "wirelesscharging",
+            "value": false
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 7
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 6
+          },
+          "smartphoneVendor": {
+            "ref": "smartphoneVendor",
+            "value": "apple"
+          },
+          "cellular": {
+            "ref": "5g",
+            "value": "5G"
+          }
+        }
+      },
+      {
+        "id": "x5",
+        "productId": "x5",
+        "categoryId": "laptops",
+        "name": "X 5",
+        "coverUrl": "https://freesvg.org/img/1507730389.png",
+        "attributes": {
+          "cpu": {
+            "ref": "cpu",
+            "value": "amdRyzen95900HX"
+          },
+          "laptopVendor": {
+            "ref": "laptopVendor",
+            "value": "xfake"
+          },
+          "ssdSize": {
+            "ref": "ssdSize",
+            "value": 2048
+          },
+          "displaySize": {
+            "ref": "displaySize",
+            "value": 17
+          },
+          "ram": {
+            "ref": "ram",
+            "value": 32
+          },
+          "gpu": {
+            "ref": "gpu",
+            "value": "nvidiaGeForceRTX3080"
+          },
+          "screenResolution": {
+            "ref": "screenResolution",
+            "value": "2560x14402K"
+          }
+        }
+      }
+    ]
+  },
+  "model": {
+    "attribute": ["attributeId", "name", "type", "unit"],
+    "category": [
+      "categoryId",
+      "name",
+      "order",
+      "topOrder",
+      "dateTimeCreated",
+      "dateTimeUpdated"
+    ],
+    "attributeSet": ["attributeSetId", "attributeId", "name", "order"],
+    "categoryAttribute": ["categoryId", "attributeId", "order", "mandatory"],
+    "product": ["productId", "categoryId", "name", "coverUrl"],
+    "productAttribute": ["productId", "attributeId", "value"],
+    "productAttributeSet": ["productId", "attributeSetId"]
+  },
+  "data": {
+    "attribute": [
+      ["weight", "Weight", "number", "g"],
+      ["chargingConnectorType", "Charging Connector Type", "id", null],
+      ["cpu", "CPU", "id", null],
+      ["laptopVendor", "LaptopVendor", "id", null],
+      ["internalMemory", "Internal Memory", "number", "GB"],
+      ["mainCameraResolution", "Main Camera Resolution", "id", "MP"],
+      ["operatingSystem", "Operating System", "id", null],
+      ["hddSize", "HDD Size", "number", "Gb"],
+      ["wirelesscharging", "Wireless charging", "boolean", null],
+      ["ssdSize", "SSD Size", "number", "Gb"],
+      ["displaySize", "Display Size", "number", "inches"],
+      ["cellular", "Cellular", "string", null],
+      ["ram", "RAM", "number", "Gb"],
+      ["gpu", "GPU", "id", null],
+      ["smartphoneVendor", "Smartphone Vendor", "id", null],
+      ["screenResolution", "Screen Resolution", "id", "px"]
+    ],
+    "category": [
+      [
+        "laptops",
+        "Laptops",
+        2,
+        2,
+        "2021-10-23T12:38:34.000",
+        "2021-10-23T12:38:34.000"
+      ],
+      [
+        "smartphones",
+        "Smartphones",
+        1,
+        1,
+        "2021-10-23T12:38:34.000",
+        "2021-10-23T12:38:34.000"
+      ]
+    ],
+    "attributeSet": [
+      ["usbTypeC", "chargingConnectorType", "USB Type C", 0],
+      ["5to79", "mainCameraResolution", "5 to 7.9", 2],
+      ["nvidiaGeForceRTX3070", "gpu", "NVIDIA® GeForce RTX™ 3070", 1],
+      ["intelCorei710870H", "cpu", "Intel Core i7-10870H", 3],
+      ["microUSB", "chargingConnectorType", "Micro USB", 1],
+      ["8to129", "mainCameraResolution", "8 to 12.9", 3],
+      ["msi", "laptopVendor", "MSI", 0],
+      ["upto29", "mainCameraResolution", "Up to 2.9", 0],
+      ["4gLTE", "cellular", "4G LTE", 1],
+      ["intelCorei912900H", "cpu", "Intel Core i9 12900H", 0],
+      ["3840x21604K", "screenResolution", "3840X2160 (4K)", 2],
+      ["samsung", "smartphoneVendor", "Samsung", 1],
+      ["3g", "cellular", "3G", 2],
+      ["amdRyzen95900HX", "cpu", "AMD Ryzen 9 5900HX", 4],
+      ["5g", "cellular", "5G", 0],
+      ["xfake", "laptopVendor", "XFake", 2],
+      ["intelCorei911900H", "cpu", "Intel Core i9 11900H", 1],
+      ["20above", "mainCameraResolution", "20 & above", 5],
+      ["nvidiaGeForceRTX3060", "gpu", "NVIDIA® GeForce RTX™ 3060", 0],
+      ["android9", "operatingSystem", "Android 9", 1],
+      ["xiaomy", "smartphoneVendor", "Xiaomy", 3],
+      ["3to49", "mainCameraResolution", "3 to 4.9", 1],
+      ["1920x1080", "screenResolution", "1920x1080", 0],
+      ["lightning", "chargingConnectorType", "Lightning", 2],
+      ["apple", "smartphoneVendor", "Apple", 2],
+      ["nvidiaGeForceRTX3080", "gpu", "NVIDIA® GeForce RTX™ 3080", 2],
+      ["asus", "laptopVendor", "Asus", 1],
+      ["iOS13", "operatingSystem", "iOS 13", 2],
+      ["iOS15", "operatingSystem", "iOS 15", 4],
+      ["2560x14402K", "screenResolution", "2560x1440 (2K)", 1],
+      ["android10", "operatingSystem", "Android 10", 0],
+      ["13to199", "mainCameraResolution", "13 to 19.9", 4],
+      ["amdRyzen96980HX", "cpu", "AMD Ryzen 9 6980HX", 5],
+      ["iOS14", "operatingSystem", "iOS 14", 3],
+      ["intelCorei711800H", "cpu", "Intel Core i7 11800H", 2]
+    ],
+    "categoryAttribute": [
+      ["laptops", "cpu", 4, true],
+      ["laptops", "laptopVendor", 1, false],
+      ["laptops", "hddSize", 8, false],
+      ["laptops", "ssdSize", 7, false],
+      ["laptops", "displaySize", 2, false],
+      ["laptops", "ram", 6, false],
+      ["laptops", "gpu", 5, true],
+      ["laptops", "screenResolution", 3, false],
+      ["smartphones", "weight", 7, false],
+      ["smartphones", "chargingConnectorType", 10, true],
+      ["smartphones", "internalMemory", 4, false],
+      ["smartphones", "mainCameraResolution", 6, false],
+      ["smartphones", "operatingSystem", 2, true],
+      ["smartphones", "wirelesscharging", 9, false],
+      ["smartphones", "displaySize", 8, false],
+      ["smartphones", "cellular", 3, true],
+      ["smartphones", "ram", 5, false],
+      ["smartphones", "smartphoneVendor", 1, true]
+    ],
+    "product": [
+      [
+        "gs76Stealth11UH218",
+        "laptops",
+        "GS76 Stealth 11UH-218",
+        "https://asset.msi.com/resize/image/global/product/product_16196793760b724636616864c08e8b421169caac6f.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png"
+      ],
+      ["x6", "laptops", "X 6", "https://freesvg.org/img/1507730389.png"],
+      ["x1", "laptops", "X 1", "https://freesvg.org/img/1507730389.png"],
+      ["x4", "laptops", "X 4", "https://freesvg.org/img/1507730389.png"],
+      ["x3", "laptops", "X 3", "https://freesvg.org/img/1507730389.png"],
+      [
+        "rogStrixScar17G733ZM",
+        "laptops",
+        "ROG Strix Scar 17  G733ZM",
+        "https://dlcdnwebimgs.asus.com/files/media/F984503A-DB7B-4D6A-A7B1-61F6E78FEC34/images/product-01.png"
+      ],
+      ["x2", "laptops", "X 2", "https://freesvg.org/img/1507730389.png"],
+      [
+        "gp7611UG876",
+        "laptops",
+        "GP76 11UG-876",
+        "https://asset.msi.com/resize/image/global/product/product_161949107402acbfdce8a5715ede9b8ea92abd9192.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png"
+      ],
+      [
+        "ge66Raider10UH417",
+        "laptops",
+        "GE66 Raider 10UH-417",
+        "https://asset.msi.com/resize/image/global/product/product_0_20200323163135_5e7873e793b93.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png"
+      ],
+      ["x7", "laptops", "X 7", "https://freesvg.org/img/1507730389.png"],
+      [
+        "iphone13Pro128Gb",
+        "smartphones",
+        "IPhone 13 Pro 128Gb",
+        "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-pro-max-graphite-select?wid=470&hei=556&fmt=png-alpha&.v=1631652956000"
+      ],
+      [
+        "galaxyNote10",
+        "smartphones",
+        "Galaxy Note10+",
+        "https://images.samsung.com/levant/smartphones/galaxy-note10/buy/nonshop/m-img-note10-auraglow-01.png"
+      ],
+      [
+        "iphone11128Gb",
+        "smartphones",
+        "IPhone 11 128Gb",
+        "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone11-white-select-2019_GEO_EMEA?wid=470&hei=556&fmt=png-alpha&.v=1567021770073"
+      ],
+      [
+        "rogZephyrusDuo16GX650RM",
+        "laptops",
+        "ROG Zephyrus Duo 16 GX650RM",
+        "https://dlcdnwebimgs.asus.com/files/media/85F07B68-389E-4C5B-97C7-1C978137DA6C/images/product-01.png"
+      ],
+      [
+        "iphone13ProMax256Gb",
+        "smartphones",
+        "IPhone 13 Pro Max 256Gb",
+        "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-pro-max-blue-select?wid=470&hei=556&fmt=png-alpha&.v=1631652955000"
+      ],
+      ["x5", "laptops", "X 5", "https://freesvg.org/img/1507730389.png"]
+    ],
+    "productAttribute": [
+      ["gs76Stealth11UH218", "cpu", "intelCorei911900H"],
+      ["gs76Stealth11UH218", "laptopVendor", "msi"],
+      ["gs76Stealth11UH218", "ssdSize", 2048],
+      ["gs76Stealth11UH218", "displaySize", 17],
+      ["gs76Stealth11UH218", "ram", 16],
+      ["gs76Stealth11UH218", "gpu", "nvidiaGeForceRTX3080"],
+      ["gs76Stealth11UH218", "screenResolution", "3840x21604K"],
+      ["x6", "cpu", "intelCorei710870H"],
+      ["x6", "laptopVendor", "xfake"],
+      ["x6", "hddSize", 1024],
+      ["x6", "ssdSize", 512],
+      ["x6", "displaySize", 16],
+      ["x6", "ram", 16],
+      ["x6", "gpu", "nvidiaGeForceRTX3060"],
+      ["x6", "screenResolution", "1920x1080"],
+      ["x1", "cpu", "intelCorei710870H"],
+      ["x1", "laptopVendor", "xfake"],
+      ["x1", "hddSize", 1048],
+      ["x1", "ssdSize", 1048],
+      ["x1", "displaySize", 15],
+      ["x1", "ram", 16],
+      ["x1", "gpu", "nvidiaGeForceRTX3060"],
+      ["x1", "screenResolution", "1920x1080"],
+      ["x4", "cpu", "intelCorei710870H"],
+      ["x4", "laptopVendor", "xfake"],
+      ["x4", "hddSize", 2048],
+      ["x4", "ssdSize", 128],
+      ["x4", "displaySize", 15],
+      ["x4", "ram", 8],
+      ["x4", "gpu", "nvidiaGeForceRTX3070"],
+      ["x4", "screenResolution", "2560x14402K"],
+      ["x3", "cpu", "intelCorei911900H"],
+      ["x3", "laptopVendor", "xfake"],
+      ["x3", "hddSize", 2048],
+      ["x3", "ssdSize", 256],
+      ["x3", "displaySize", 17],
+      ["x3", "ram", 32],
+      ["x3", "gpu", "nvidiaGeForceRTX3070"],
+      ["x3", "screenResolution", "3840x21604K"],
+      ["rogStrixScar17G733ZM", "cpu", "intelCorei912900H"],
+      ["rogStrixScar17G733ZM", "laptopVendor", "asus"],
+      ["rogStrixScar17G733ZM", "ssdSize", 2048],
+      ["rogStrixScar17G733ZM", "displaySize", 17],
+      ["rogStrixScar17G733ZM", "ram", 32],
+      ["rogStrixScar17G733ZM", "gpu", "nvidiaGeForceRTX3060"],
+      ["rogStrixScar17G733ZM", "screenResolution", "2560x14402K"],
+      ["x2", "cpu", "intelCorei711800H"],
+      ["x2", "laptopVendor", "xfake"],
+      ["x2", "hddSize", 1024],
+      ["x2", "ssdSize", 512],
+      ["x2", "displaySize", 16],
+      ["x2", "ram", 32],
+      ["x2", "gpu", "nvidiaGeForceRTX3070"],
+      ["x2", "screenResolution", "2560x14402K"],
+      ["gp7611UG876", "cpu", "intelCorei711800H"],
+      ["gp7611UG876", "laptopVendor", "msi"],
+      ["gp7611UG876", "ssdSize", 1024],
+      ["gp7611UG876", "displaySize", 17],
+      ["gp7611UG876", "ram", 16],
+      ["gp7611UG876", "gpu", "nvidiaGeForceRTX3070"],
+      ["gp7611UG876", "screenResolution", "1920x1080"],
+      ["ge66Raider10UH417", "cpu", "intelCorei710870H"],
+      ["ge66Raider10UH417", "laptopVendor", "msi"],
+      ["ge66Raider10UH417", "ssdSize", 2048],
+      ["ge66Raider10UH417", "displaySize", 15],
+      ["ge66Raider10UH417", "ram", 16],
+      ["ge66Raider10UH417", "gpu", "nvidiaGeForceRTX3080"],
+      ["ge66Raider10UH417", "screenResolution", "1920x1080"],
+      ["x7", "cpu", "amdRyzen96980HX"],
+      ["x7", "laptopVendor", "xfake"],
+      ["x7", "ssdSize", 2048],
+      ["x7", "displaySize", 17],
+      ["x7", "ram", 32],
+      ["x7", "gpu", "nvidiaGeForceRTX3080"],
+      ["x7", "screenResolution", "3840x21604K"],
+      ["iphone13Pro128Gb", "weight", 206],
+      ["iphone13Pro128Gb", "chargingConnectorType", "lightning"],
+      ["iphone13Pro128Gb", "internalMemory", 128],
+      ["iphone13Pro128Gb", "mainCameraResolution", "8to129"],
+      ["iphone13Pro128Gb", "operatingSystem", "iOS15"],
+      ["iphone13Pro128Gb", "wirelesscharging", true],
+      ["iphone13Pro128Gb", "displaySize", 6],
+      ["iphone13Pro128Gb", "ram", 6],
+      ["iphone13Pro128Gb", "smartphoneVendor", "apple"],
+      ["galaxyNote10", "weight", 168],
+      ["galaxyNote10", "chargingConnectorType", "usbTypeC"],
+      ["galaxyNote10", "internalMemory", 256],
+      ["galaxyNote10", "mainCameraResolution", "13to199"],
+      ["galaxyNote10", "operatingSystem", "android9"],
+      ["galaxyNote10", "wirelesscharging", true],
+      ["galaxyNote10", "displaySize", 6],
+      ["galaxyNote10", "ram", 8],
+      ["galaxyNote10", "smartphoneVendor", "samsung"],
+      ["iphone11128Gb", "weight", 194],
+      ["iphone11128Gb", "chargingConnectorType", "lightning"],
+      ["iphone11128Gb", "internalMemory", 128],
+      ["iphone11128Gb", "mainCameraResolution", "8to129"],
+      ["iphone11128Gb", "operatingSystem", "iOS13"],
+      ["iphone11128Gb", "wirelesscharging", true],
+      ["iphone11128Gb", "displaySize", 6],
+      ["iphone11128Gb", "ram", 4],
+      ["iphone11128Gb", "smartphoneVendor", "apple"],
+      ["rogZephyrusDuo16GX650RM", "cpu", "amdRyzen96980HX"],
+      ["rogZephyrusDuo16GX650RM", "laptopVendor", "asus"],
+      ["rogZephyrusDuo16GX650RM", "ssdSize", 2048],
+      ["rogZephyrusDuo16GX650RM", "displaySize", 16],
+      ["rogZephyrusDuo16GX650RM", "ram", 32],
+      ["rogZephyrusDuo16GX650RM", "gpu", "nvidiaGeForceRTX3060"],
+      ["rogZephyrusDuo16GX650RM", "screenResolution", "2560x14402K"],
+      ["iphone13ProMax256Gb", "weight", 238],
+      ["iphone13ProMax256Gb", "chargingConnectorType", "lightning"],
+      ["iphone13ProMax256Gb", "internalMemory", 256],
+      ["iphone13ProMax256Gb", "mainCameraResolution", "8to129"],
+      ["iphone13ProMax256Gb", "operatingSystem", "iOS15"],
+      ["iphone13ProMax256Gb", "wirelesscharging", false],
+      ["iphone13ProMax256Gb", "displaySize", 7],
+      ["iphone13ProMax256Gb", "ram", 6],
+      ["iphone13ProMax256Gb", "smartphoneVendor", "apple"],
+      ["x5", "cpu", "amdRyzen95900HX"],
+      ["x5", "laptopVendor", "xfake"],
+      ["x5", "ssdSize", 2048],
+      ["x5", "displaySize", 17],
+      ["x5", "ram", 32],
+      ["x5", "gpu", "nvidiaGeForceRTX3080"],
+      ["x5", "screenResolution", "2560x14402K"]
+    ],
+    "productAttributeSet": [
+      ["iphone13Pro128Gb", "4gLTE"],
+      ["iphone13Pro128Gb", "3g"],
+      ["iphone13Pro128Gb", "5g"],
+      ["galaxyNote10", "4gLTE"],
+      ["galaxyNote10", "3g"],
+      ["iphone11128Gb", "4gLTE"],
+      ["iphone11128Gb", "3g"],
+      ["iphone13ProMax256Gb", "4gLTE"],
+      ["iphone13ProMax256Gb", "3g"],
+      ["iphone13ProMax256Gb", "5g"]
+    ]
+  }
+}
