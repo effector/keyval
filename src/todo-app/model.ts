@@ -59,22 +59,6 @@ export const subtasksTotalAmount = createAggregate({
   defaultValue: 0,
 })
 
-// export const subtasksActiveAmount = createAggregate({
-//   kv: todos,
-//   aggregateField: 'childOf',
-//   fn: childs => childs.length,
-//   when: ({completed}) => !completed,
-//   defaultValue: 0,
-// })
-
-// export const subtasksCompletedAmount = createAggregate({
-//   kv: todos,
-//   aggregateField: 'childOf',
-//   fn: childs => childs.length,
-//   when: ({completed}) => completed,
-//   defaultValue: 0,
-// })
-
 export const $count = taskTreeSelection.state.size
 
 export const todoSelectedChildOf = createIndex({
@@ -95,14 +79,11 @@ export const todoItemApi = createItemApi({
       removeChilds: {childField: 'childOf'},
     }),
     setEditing: todos.setField('editing'),
-    editMode: todos.mapItem(({title}, editing: boolean) => ({
-      editing,
+    editMode: todos.mapItem(({title}, mode: 'on' | 'off') => ({
+      editing: mode === 'on',
       titleEdited: title,
     })),
     onChange: todos.setField('titleEdited'),
-  },
-  prepare: {
-    editMode: (key, mode: 'on' | 'off') => ({key, value: mode === 'on'}),
   },
 })
 

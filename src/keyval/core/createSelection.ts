@@ -40,11 +40,11 @@ export function createSwitch<
         currentCase === field ? 'activate' : 'deactivate',
       cases: {
         activate: selection.api.addConsumer.prepend(() => consumerId),
-        deactivate: selection.api.removeConsumer.prepend(() => consumerId)
-      },
+        deactivate: selection.api.removeConsumer.prepend(() => consumerId),
+      } as const,
     })
   })
-  if (currentConsumerId) {
+  if (currentConsumerId!) {
     normCases[initialCase].api.addConsumer(currentConsumerId)
   }
   const caseNames = Object.keys(normCases) as Array<keyof Shape>
