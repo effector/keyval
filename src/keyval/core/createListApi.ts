@@ -1,6 +1,6 @@
 import {createStore, createEvent, sample} from 'effector'
 
-import type {KV, Key, ListApi, SelectionSwitch} from './types'
+import type {KV, Key, ListApi, Selection} from './types'
 import {createIndex} from './createIndex'
 
 export function createListApi<Item, KeyField extends keyof Item>({
@@ -109,7 +109,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
     removeItem<ChildField extends keyof Item>(config?: {
       removeChilds: {
         childField: ChildField
-        selection?: SelectionSwitch<Item, ChildField, any>
+        selection?: Selection<Item>
       }
     }) {
       if (!config) {

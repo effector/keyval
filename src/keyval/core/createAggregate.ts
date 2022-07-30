@@ -1,5 +1,5 @@
 import {combine} from 'effector'
-import type {Aggregate, ListApi, SelectionSwitch} from './types'
+import type {Aggregate, ListApi, Selection} from './types'
 
 import {createIndex} from './createIndex'
 
@@ -20,7 +20,7 @@ export function createAggregate<
   aggregateField: AggregateField
   fn: (items: T[], groupID: T[AggregateField]) => Aggregation
   when?: (item: T, groupID: T[AggregateField]) => boolean
-  selection?: SelectionSwitch<T, AggregateField, any>
+  selection?: Selection<T>
   defaultValue: Aggregation
 }): Aggregate<T, AggregateField, IDField, Aggregation> {
   const index = createIndex({kv, field: aggregateField, selection})

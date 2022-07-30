@@ -5,9 +5,9 @@ export {createIndex} from './createIndex'
 export {createAggregate} from './createAggregate'
 export type {
   ListApi,
-  SelectionSwitch,
+  SwitchSelection,
   ItemApi,
   IndexApi,
   Aggregate,
-  Selection,
+  FilterSelection,
 } from './types'

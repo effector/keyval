@@ -1,6 +1,7 @@
 import {combine} from 'effector'
 
-import type {ListApi, SelectionSwitch, IndexApi} from './types'
+import type {ListApi, Selection, IndexApi} from './types'
+import {addAlwaysActivatedConsumer} from './consumerPort'
 
 export function createIndex<T, K extends keyof T, ID extends keyof T>({
   kv,
@@ -9,7 +10,7 @@ export function createIndex<T, K extends keyof T, ID extends keyof T>({
 }: {
   kv: ListApi<T, ID>
   field: K
-  selection?: SelectionSwitch<T, K, any>
+  selection?: Selection<T>
 }): IndexApi<T, K, ID> {
   const fn = (map: Record<string, T>, items?: T[]) => {
     const result = new Map<T[K], T[ID][]>()
@@ -25,6 +26,9 @@ export function createIndex<T, K extends keyof T, ID extends keyof T>({
       bucket.push(kv.config.getKey(value) as unknown as T[ID])
     }
     return result
+  }
+  if (selection) {
+    addAlwaysActivatedConsumer(selection.port)
   }
   const groups = selection
     ? combine(kv.state.store, selection.state.items, fn)

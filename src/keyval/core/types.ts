@@ -19,7 +19,7 @@ export type ListApi<Item, IDField extends keyof Item = any> = {
   removeItem<ChildField extends keyof Item>(config: {
     removeChilds: {
       childField: ChildField
-      selection?: SelectionSwitch<Item, ChildField, any>
+      selection?: Selection<Item>
     }
   }): Event<{key: Key}>
   addItem<Params>(config: {
@@ -71,9 +71,30 @@ export type InputItemTree<Item> = {
 type Events<T extends {[key: string]: any}> = {[K in keyof T]: Event<T[K]>}
 type Stores<T extends {[key: string]: any}> = {[K in keyof T]: Store<T[K]>}
 
-export type SelectionSwitch<
+export type Selection<Item> = {
+  state: Stores<{
+    items: Item[]
+    size: number
+  }>
+  port: ConsumerPort
+}
+
+export type ConsumerPort = {
+  state: Stores<{
+    active: boolean
+    consumers: number[]
+  }>
+  api: Events<{
+    addConsumer: number
+    removeConsumer: number
+    activated: void
+    deactivated: void
+  }>
+  consumersTotal: number
+}
+
+export type SwitchSelection<
   Item,
-  IDField extends keyof Item,
   Shape extends Record<string, Selection<Item>>,
 > = {
   state: Stores<{
@@ -83,22 +104,16 @@ export type SelectionSwitch<
   }>
   api: {[K in keyof Shape]: Event<void>}
   cases: Shape
+  port: ConsumerPort
 }
 
-export type Selection<Item> = {
+export type FilterSelection<Item> = {
   state: Stores<{
-    active: boolean
-    consumers: number[]
     items: Item[]
     size: number
   }>
-  api: Events<{
-    addConsumer: number
-    removeConsumer: number
-    activated: void
-  }>
   fn: (item: Item) => boolean
-  consumersTotal: number
+  port: ConsumerPort
 }
 
 export type ItemApi<T, ItemTriggers extends Record<string, unknown>> = {
@@ -114,7 +129,7 @@ export type IndexApi<
   kv: ListApi<Item, IDField>
   field: ChildField
   groups: Store<Map<Item[ChildField], Item[IDField][]>>
-  selection?: SelectionSwitch<Item, ChildField, any>
+  selection?: Selection<Item>
 }
 
 export type Aggregate<
@@ -128,7 +143,7 @@ export type Aggregate<
   config: {
     aggregateField: AggregateField
     fn: (items: T[], groupID: T[AggregateField]) => Aggregation
-    selection?: SelectionSwitch<T, AggregateField, any>
+    selection?: Selection<T>
     when?: (item: T, groupID: T[AggregateField]) => boolean
     defaultValue: Aggregation
   }
