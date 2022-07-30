@@ -61,7 +61,7 @@ export const subtasksTotalAmount = createAggregate({
 
 export const $count = taskTreeSelection.state.size
 
-export const todoSelectedChildOf = createIndex({
+export const subtaskIndex = createIndex({
   kv: todos,
   field: 'childOf',
   selection: taskTreeSelection,

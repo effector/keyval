@@ -10,7 +10,7 @@ import {
   clearCompleted,
   toggleAll,
   todoItemApi,
-  todoSelectedChildOf,
+  subtaskIndex,
   subtasksVisibleAmount,
   subtasksTotalAmount,
   changeDraft,
@@ -165,7 +165,7 @@ export const TodoItem = ({id, nesting}: {id: string; nesting: number}) => {
 }
 const TodoSubtree = ({nesting, id}: {nesting: number; id: string | null}) => (
   <ul className="todo-list" style={{'--nesting': nesting} as any}>
-    {useIndex(todoSelectedChildOf, id, (id) => (
+    {useIndex(subtaskIndex, id, (id) => (
       <TodoItem id={id} nesting={nesting} />
     ))}
   </ul>
