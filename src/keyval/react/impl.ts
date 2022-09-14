@@ -10,7 +10,7 @@ export function useItemState<T extends ItemApi<any, any>>(
 ): T extends ItemApi<infer S, any> ? S : never {
   return useStoreMap({
     store: itemApi.kv.state.store,
-    fn: (items) => itemApi.kv.config.getItem(items, id),
+    fn: (items) => itemApi.kv.config.getItem(items.ref, id),
     keys: [id],
   })
 }

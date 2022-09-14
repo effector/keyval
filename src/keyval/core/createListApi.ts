@@ -11,7 +11,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
   keygen: (draft: Omit<Item, KeyField>) => Item[KeyField]
 }): ListApi<Item, KeyField> {
   const getKey = (item: Item): Key => item[key] as any
-  const $kv = createStore<KV<Item>>({})
+  const $kv = createStore<{ref: KV<Item>}>({ref: {}})
 
   const $keys = createStore<Array<Item[KeyField]>>([], {
     updateFilter(keys, oldKeys) {
@@ -23,9 +23,9 @@ export function createListApi<Item, KeyField extends keyof Item>({
 
   const setAll = createEvent<{key: keyof Item; value: Item[keyof Item]}>()
   $kv.on(setAll, (kv, {key, value}) => {
-    kv = {...kv}
+    kv = {ref: kv.ref}
     for (const id in kv) {
-      kv[id] = {...kv[id], [key]: value}
+      kv.ref[id] = {...kv.ref[id], [key]: value}
     }
     return kv
   })
@@ -49,31 +49,34 @@ export function createListApi<Item, KeyField extends keyof Item>({
     arrifyIterate(updates, ({key, value}) => {
       if (key === undefined) return
       const key_: Key = key as any
-      if (key_ in kv && value === kv[key_]) return
+      if (key_ in kv.ref && value === kv.ref[key_]) return
       if (!kvChanged) {
         kvChanged = true
-        kv = {...kv}
+        kv = {ref: kv.ref}
       }
-      kv[key_] = value
+      kv.ref[key_] = value
     })
     return kv
   })
   $kv.on(mapItem, (kv, {key, value, fn}) => {
-    if (key in kv) {
-      const upd = fn(kv[key], value)
-      return {...kv, [key]: {...kv[key], ...upd}}
+    if (key in kv.ref) {
+      const upd = fn(kv.ref[key], value)
+      kv.ref[key] = {...kv.ref[key], ...upd}
+      return {ref: kv.ref}
     }
   })
-  $kv.on(removeWhen, (kv, {field}) => filterKV(kv, (val) => !val[field]))
+  $kv.on(removeWhen, (kv, {field}) => ({
+    ref: filterKV(kv.ref, (val) => !val[field]),
+  }))
   $kv.on(removeItem, (kv, itemOrItems) => {
     let kvChanged = false
     arrifyIterate(itemOrItems, ({key}) => {
-      if (key in kv) {
+      if (key in kv.ref) {
         if (!kvChanged) {
           kvChanged = true
-          kv = {...kv}
+          kv = {ref: kv.ref}
         }
-        delete kv[key]
+        delete kv.ref[key]
       }
     })
     return kv
@@ -153,7 +156,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
           processItem(
             key as Item[KeyField] & Item[ChildField] & string,
             groups,
-            kv,
+            kv.ref,
             keysToRemove,
           )
           return keysToRemove.map((key) => ({key}))

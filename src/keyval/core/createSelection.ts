@@ -109,7 +109,7 @@ export function createSelection<Item, KeyField extends keyof Item>(
     source: kv.state.store,
     filter: port.state.active,
     target: $items,
-    fn: (kv) => Object.values(kv).filter(fn),
+    fn: (kv) => Object.values(kv.ref).filter(fn),
   })
 
   return {

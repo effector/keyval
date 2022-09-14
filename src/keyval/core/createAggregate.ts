@@ -29,9 +29,9 @@ export function createAggregate<
     for (const [key, group] of indexGroups) {
       const vals: T[] = []
       for (const id of group) {
-        const item = kv[id as any]
+        const item = kv.ref[id as any]
         if (!when || when(item, key)) {
-          vals.push(kv[id as any])
+          vals.push(kv.ref[id as any])
         }
       }
       result.set(key, fn(vals, key))

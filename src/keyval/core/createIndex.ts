@@ -12,7 +12,7 @@ export function createIndex<T, K extends keyof T, ID extends keyof T>({
   field: K
   selection?: Selection<T>
 }): IndexApi<T, K, ID> {
-  const fn = (map: Record<string, T>, items?: T[]) => {
+  const fn = ({ref: map}: {ref: Record<string, T>}, items?: T[]) => {
     const result = new Map<T[K], T[ID][]>()
     for (const key in map) {
       const value = map[key]

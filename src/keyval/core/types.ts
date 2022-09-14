@@ -41,7 +41,7 @@ export type ListApi<Item, IDField extends keyof Item = any> = {
   }
 
   state: Stores<{
-    store: KV<Item>
+    store: {ref: KV<Item>}
     keys: Item[IDField][]
   }>
 
