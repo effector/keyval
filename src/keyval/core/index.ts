@@ -10,4 +10,5 @@ export type {
   IndexApi,
   Aggregate,
   FilterSelection,
+  PossibleKey,
 } from './types'

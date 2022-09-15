@@ -1,37 +1,29 @@
 import {createStore, createEvent, sample} from 'effector'
 
-import type {KV, Key, ListApi, Selection} from './types'
+import type {PossibleKey, ListApi, Selection} from './types'
 import {createIndex} from './createIndex'
 
-export function createListApi<Item, KeyField extends keyof Item>({
+export function createListApi<Item, Key extends PossibleKey>({
   keygen,
-  key,
 }: {
-  key: KeyField
-  keygen: (draft: Omit<Item, KeyField>) => Item[KeyField]
-}): ListApi<Item, KeyField> {
-  const getKey = (item: Item): Key => item[key] as any
-  const $kv = createStore<{ref: KV<Item>}>({ref: {}})
+  keygen: (draft: Item) => Key
+}): ListApi<Item, Key> {
+  type KV = Record<Key, Item>
 
-  const $keys = createStore<Array<Item[KeyField]>>([], {
-    updateFilter(keys, oldKeys) {
-      if (keys.length !== oldKeys.length) return true
-      return keys.some((key, index) => oldKeys[index] !== key)
-    },
+  const $kv = createStore<{ref: KV}>({
+    ref: {} as KV,
   })
-  $keys.on($kv, (kv) => Object.keys(kv) as unknown as Array<Item[KeyField]>)
 
   const setAll = createEvent<{key: keyof Item; value: Item[keyof Item]}>()
   $kv.on(setAll, (kv, {key, value}) => {
     kv = {ref: kv.ref}
     for (const id in kv) {
-      kv.ref[id] = {...kv.ref[id], [key]: value}
+      kv.ref[id as Key] = {...kv.ref[id as Key], [key]: value}
     }
     return kv
   })
   const addItem = createEvent<
-    | {key: Item[KeyField]; value: Item}
-    | Array<{key: Item[KeyField]; value: Item}>
+    {key: Key; value: Item} | Array<{key: Key; value: Item}>
   >()
   const removeItem = createEvent<{key: Key} | {key: Key}[]>()
   const removeWhen = createEvent<{
@@ -44,19 +36,18 @@ export function createListApi<Item, KeyField extends keyof Item>({
     value: any
     fn: (value: Item, data: any) => Partial<Item>
   }>()
+
   $kv.on(addItem, (kv, updates) => {
     let kvChanged = false
     arrifyIterate(updates, ({key, value}) => {
       if (key === undefined) return
-      const key_: Key = key as any
-      if (key_ in kv.ref && value === kv.ref[key_]) return
-      if (!kvChanged) {
-        kvChanged = true
-        kv = {ref: kv.ref}
-      }
-      kv.ref[key_] = value
+      if (key in kv.ref && value === kv.ref[key]) return
+
+      kvChanged = true
+      kv.ref[key] = value
     })
-    return kv
+
+    return kvChanged ? {ref: kv.ref} : kv
   })
   $kv.on(mapItem, (kv, {key, value, fn}) => {
     if (key in kv.ref) {
@@ -72,26 +63,19 @@ export function createListApi<Item, KeyField extends keyof Item>({
     let kvChanged = false
     arrifyIterate(itemOrItems, ({key}) => {
       if (key in kv.ref) {
-        if (!kvChanged) {
-          kvChanged = true
-          kv = {ref: kv.ref}
-        }
+        kvChanged = true
         delete kv.ref[key]
       }
     })
-    return kv
+    return kvChanged ? {ref: kv.ref} : kv
   })
-  const listApi: ListApi<Item, KeyField> = {
+  const listApi: ListApi<Item, Key> = {
     config: {
-      key,
-      getKey,
-      getItem: (store: KV<Item>, key: Key | [Key]): Item =>
+      getItem: (store: KV, key: Key | [Key]): Item =>
         store[Array.isArray(key) ? key[0] : key],
-      keygen,
     },
     state: {
       store: $kv,
-      keys: $keys,
     },
     events: {
       setAll,
@@ -118,6 +102,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
       if (!config) {
         return removeItem.prepend(({key}: {key: Key}) => ({key}))
       }
+
       const {
         removeChilds: {childField, selection},
       } = config
@@ -128,9 +113,9 @@ export function createListApi<Item, KeyField extends keyof Item>({
       })
       const removeItemTrigger = createEvent<{key: Key}>()
       function processItem(
-        key: Item[KeyField] & Item[ChildField] & string,
-        groups: Map<Item[ChildField], Item[KeyField][]>,
-        kv: KV<Item>,
+        key: Key & Item[ChildField] & string,
+        groups: Map<Item[ChildField], Key[]>,
+        kv: KV,
         keysToRemove: string[],
       ) {
         const item = kv[key]
@@ -141,7 +126,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
         if (!group) return
         group.forEach((child) =>
           processItem(
-            child as Item[KeyField] & Item[ChildField] & string,
+            child as Key & Item[ChildField] & string,
             groups,
             kv,
             keysToRemove,
@@ -152,9 +137,9 @@ export function createListApi<Item, KeyField extends keyof Item>({
         clock: removeItemTrigger,
         source: {groups: index.groups, kv: $kv},
         fn({groups, kv}, {key}) {
-          const keysToRemove: string[] = []
+          const keysToRemove: any[] = []
           processItem(
-            key as Item[KeyField] & Item[ChildField] & string,
+            key as Key & Item[ChildField] & string,
             groups,
             kv.ref,
             keysToRemove,
@@ -163,6 +148,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
         },
         target: removeItem,
       })
+
       return removeItemTrigger
     },
     addItem({fn}) {
@@ -171,10 +157,7 @@ export function createListApi<Item, KeyField extends keyof Item>({
         const itemKey = keygen(userData)
         return {
           key: itemKey,
-          value: {
-            ...userData,
-            [key]: itemKey,
-          } as any,
+          value: userData,
         }
       })
     },
@@ -184,37 +167,34 @@ export function createListApi<Item, KeyField extends keyof Item>({
       getChilds,
     }: {
       normalize?: (input: RawInput) => Input
-      convertInput: (
-        item: Input,
-        childOf: Item[KeyField] | null,
-      ) => Omit<Item, KeyField>
+      convertInput: (item: Input, childOf: Key | null) => Item
       getChilds: (item: Input) => RawInput | RawInput[] | null | undefined
     }) {
       function traverseTree(
         raw: RawInput,
         result: {
-          key: Item[KeyField]
+          key: Key
           value: Item
         }[],
-        childOf: Item[KeyField] | null = null,
+        childOf: Key | null = null,
       ) {
         const input = normalize(raw)
         const value = convertInput(input, childOf)
         const childs = getChilds(input)
         const itemKey = keygen(value)
-        const item = value as unknown as Item
-        item[key] = itemKey
-        result.push({key: itemKey, value: item})
+
+        result.push({key: itemKey, value})
         arrifyIterate<RawInput>(childs, (child) =>
           traverseTree(child, result, itemKey),
         )
       }
       return addItem.prepend((params: RawInput[] | RawInput) => {
         const result: {
-          key: Item[KeyField]
+          key: Key
           value: Item
         }[] = []
         arrifyIterate(params, (item) => traverseTree(item, result))
+
         return result
       })
     },
@@ -252,11 +232,13 @@ function arrifyIterate<T>(
   else fn(value)
 }
 
-function filterKV<Item>(
-  kv: KV<Item>,
+function filterKV<Key extends PossibleKey, Item>(
+  kv: Record<Key, Item>,
   callback: (item: Item, key?: Key) => boolean,
-): KV<Item> {
+): Record<Key, Item> {
   return Object.fromEntries(
-    Object.entries(kv).filter(([key, value]) => callback(value, key)),
-  )
+    Object.entries(kv).filter(([key, value]) =>
+      callback(value as Item, key as Key),
+    ),
+  ) as Record<Key, Item>
 }
