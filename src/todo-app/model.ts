@@ -10,8 +10,7 @@ import {
 
 import type {Todo, InputTodo} from './types'
 
-export const todos = createListApi<Todo, 'id'>({
-  key: 'id',
+export const todos = createListApi<Todo, string>({
   keygen: () => `id-${Math.random().toString(36).slice(2, 10)}`,
 })
 

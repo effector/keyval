@@ -1,14 +1,14 @@
 import {useStoreMap} from 'effector-react'
-import type {Aggregate} from '../core'
+import type {Aggregate, PossibleKey} from '../core'
 
 export function useAggregate<
-  T,
-  IndexField extends keyof T,
-  IDField extends keyof T,
-  Aggregation
+  Item,
+  IndexField extends keyof Item,
+  Key extends PossibleKey,
+  Aggregation,
 >(
-  aggregate: Aggregate<T, IndexField, IDField, Aggregation>,
-  groupValue: T[IndexField],
+  aggregate: Aggregate<Item, Key, IndexField, Aggregation>,
+  groupValue: Item[IndexField],
 ) {
   return useStoreMap({
     store: aggregate.values,

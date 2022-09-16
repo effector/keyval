@@ -1,20 +1,20 @@
 import type {Event, EventPayload} from 'effector'
 
-import type {ListApi, ItemApi} from './types'
+import type {ListApi, ItemApi, PossibleKey} from './types'
 
 export function createItemApi<
-  T,
+  Item,
+  Key extends PossibleKey,
   Evs extends Record<string, Event<any>>,
-  KeyField extends keyof T = any,
-  Key extends T[KeyField] = any,
 >({
   kv,
   events,
 }: {
-  kv: ListApi<T>
+  kv: ListApi<Item, Key>
   events: Evs
 }): ItemApi<
-  T,
+  Item,
+  Key,
   {
     [K in keyof Evs]: EventPayload<Evs[K]> extends {key: Key}
       ? EventPayload<Evs[K]> extends {key: Key; value: infer V}

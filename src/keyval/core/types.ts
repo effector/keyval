@@ -1,9 +1,8 @@
 import type {Event, Store} from 'effector'
 
-export type Key = string
-export type KV<Item> = Record<Key, Item>
+export type PossibleKey = string | number
 
-export type ListApi<Item, IDField extends keyof Item = any> = {
+export type ListApi<Item, Key extends PossibleKey> = {
   setField<Path extends keyof Item>(
     path: Path,
   ): Event<{key: Key; value: Item[Path]}>
@@ -22,34 +21,23 @@ export type ListApi<Item, IDField extends keyof Item = any> = {
       selection?: Selection<Item>
     }
   }): Event<{key: Key}>
-  addItem<Params>(config: {
-    fn: (params: Params) => Omit<Item, IDField>
-  }): Event<Params>
+  addItem<Params>(config: {fn: (params: Params) => Item}): Event<Params>
   addItemTree<Input, RawInput = Input>(config: {
     normalize?: (input: RawInput) => Input
-    convertInput: (
-      item: Input,
-      childOf: Item[IDField] | null,
-    ) => Omit<Item, IDField>
+    convertInput: (item: Input, childOf: Key | null) => Item
     getChilds: (item: Input) => RawInput | RawInput[] | null | undefined
   }): Event<RawInput[] | RawInput>
   config: {
-    key: IDField
-    getKey: (item: Item) => Key
-    getItem: (store: KV<Item>, key: Key | [Key]) => Item
-    keygen: (draft: Omit<Item, IDField>) => Item[IDField]
+    getItem: (store: Record<Key, Item>, key: Key | [Key]) => Item // TOOD: | undefined
   }
 
   state: Stores<{
-    store: {ref: KV<Item>}
-    keys: Item[IDField][]
+    store: {ref: Record<Key, Item>}
   }>
 
   events: Events<{
     setAll: {key: keyof Item; value: Item[keyof Item]}
-    addItem:
-      | {key: Item[IDField]; value: Item}
-      | Array<{key: Item[IDField]; value: Item}>
+    addItem: {key: Key; value: Item} | Array<{key: Key; value: Item}>
     removeItem: {key: Key} | {key: Key}[]
     removeWhen: {
       field: keyof {
@@ -116,36 +104,40 @@ export type FilterSelection<Item> = {
   port: ConsumerPort
 }
 
-export type ItemApi<T, ItemTriggers extends Record<string, unknown>> = {
-  kv: ListApi<T>
-  api: {[K in keyof ItemTriggers]: Event<{key: string; value: ItemTriggers[K]}>}
+export type ItemApi<
+  Item,
+  Key extends PossibleKey,
+  ItemTriggers extends Record<string, unknown>,
+> = {
+  kv: ListApi<Item, Key>
+  api: {[K in keyof ItemTriggers]: Event<{key: Key; value: ItemTriggers[K]}>}
 }
 
 export type IndexApi<
   Item,
+  Key extends PossibleKey,
   ChildField extends keyof Item,
-  IDField extends keyof Item,
 > = {
-  kv: ListApi<Item, IDField>
+  kv: ListApi<Item, Key>
   field: ChildField
-  groups: Store<Map<Item[ChildField], Item[IDField][]>>
+  groups: Store<Map<Item[ChildField], Key[]>>
   selection?: Selection<Item>
 }
 
 export type Aggregate<
-  T,
-  AggregateField extends keyof T,
-  IDField extends keyof T,
+  Item,
+  Key extends PossibleKey,
+  AggregateField extends keyof Item,
   Aggregation,
 > = {
-  kv: ListApi<T, IDField>
-  index: IndexApi<T, AggregateField, IDField>
+  kv: ListApi<Item, Key>
+  index: IndexApi<Item, Key, AggregateField>
   config: {
     aggregateField: AggregateField
-    fn: (items: T[], groupID: T[AggregateField]) => Aggregation
-    selection?: Selection<T>
-    when?: (item: T, groupID: T[AggregateField]) => boolean
+    fn: (items: Item[], groupID: Item[AggregateField]) => Aggregation
+    selection?: Selection<Item>
+    when?: (item: Item, groupID: Item[AggregateField]) => boolean
     defaultValue: Aggregation
   }
-  values: Store<Map<T[AggregateField], Aggregation>>
+  values: Store<Map<Item[AggregateField], Aggregation>>
 }

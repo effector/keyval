@@ -12,14 +12,13 @@ import {createConsumerPort, getConsumerId} from './consumerPort'
 
 export function createSwitch<
   Item,
-  KeyField extends keyof Item,
   Shape extends Record<string, Selection<Item> | ((item: Item) => boolean)>,
 >({
   kv,
   cases,
   initialCase,
 }: {
-  kv: ListApi<Item, KeyField>
+  kv: ListApi<Item, any>
   cases: Shape
   initialCase: keyof Shape
 }): SwitchSelection<Item, {[K in keyof Shape]: Selection<Item>}> {
@@ -97,19 +96,20 @@ export function createSwitch<
   }
 }
 
-export function createSelection<Item, KeyField extends keyof Item>(
-  kv: ListApi<Item, KeyField>,
+export function createSelection<Item>(
+  kv: ListApi<Item, any>,
   fn: (item: Item) => boolean,
 ): FilterSelection<Item> {
   const port = createConsumerPort()
   const $items = createStore<Item[]>([], {updateFilter: areArraysDifferent})
   const $size = $items.map((items) => items.length)
+
   sample({
     clock: [kv.state.store, port.api.activated],
     source: kv.state.store,
     filter: port.state.active,
     target: $items,
-    fn: (kv) => Object.values(kv.ref).filter(fn),
+    fn: (kv) => Object.values<Item>(kv.ref).filter(fn),
   })
 
   return {

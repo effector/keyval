@@ -1,12 +1,12 @@
 import {combine} from 'effector'
-import type {Aggregate, ListApi, Selection} from './types'
+import type {Aggregate, ListApi, Selection, PossibleKey} from './types'
 
 import {createIndex} from './createIndex'
 
 export function createAggregate<
-  T,
-  AggregateField extends keyof T,
-  IDField extends keyof T,
+  Item,
+  AggregateField extends keyof Item,
+  Key extends PossibleKey,
   Aggregation,
 >({
   kv,
@@ -16,28 +16,32 @@ export function createAggregate<
   when,
   defaultValue,
 }: {
-  kv: ListApi<T, IDField>
+  kv: ListApi<Item, Key>
   aggregateField: AggregateField
-  fn: (items: T[], groupID: T[AggregateField]) => Aggregation
-  when?: (item: T, groupID: T[AggregateField]) => boolean
-  selection?: Selection<T>
+  fn: (items: Item[], groupID: Item[AggregateField]) => Aggregation
+  when?: (item: Item, groupID: Item[AggregateField]) => boolean
+  selection?: Selection<Item>
   defaultValue: Aggregation
-}): Aggregate<T, AggregateField, IDField, Aggregation> {
+}): Aggregate<Item, Key, AggregateField, Aggregation> {
   const index = createIndex({kv, field: aggregateField, selection})
   const values = combine(kv.state.store, index.groups, (kv, indexGroups) => {
-    const result = new Map<T[AggregateField], Aggregation>()
+    const result = new Map<Item[AggregateField], Aggregation>()
+
     for (const [key, group] of indexGroups) {
-      const vals: T[] = []
+      const vals: Item[] = []
       for (const id of group) {
-        const item = kv.ref[id as any]
+        const item = kv.ref[id]
+
         if (!when || when(item, key)) {
-          vals.push(kv.ref[id as any])
+          vals.push(item)
         }
       }
+
       result.set(key, fn(vals, key))
     }
     return result
   })
+
   return {
     kv,
     index,

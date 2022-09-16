@@ -165,8 +165,8 @@ export const TodoItem = ({id, nesting}: {id: string; nesting: number}) => {
 }
 const TodoSubtree = ({nesting, id}: {nesting: number; id: string | null}) => (
   <ul className="todo-list" style={{'--nesting': nesting} as any}>
-    {useIndex(subtaskIndex, id, (id) => (
-      <TodoItem id={id} nesting={nesting} />
-    ))}
+    {useIndex(subtaskIndex, id, (id) =>
+      id === null ? <></> : <TodoItem id={id} nesting={nesting} />,
+    )}
   </ul>
 )
