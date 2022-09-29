@@ -20,10 +20,13 @@ export function createAggregate<
   aggregateField: AggregateField
   fn: (items: Item[], groupID: Item[AggregateField]) => Aggregation
   when?: (item: Item, groupID: Item[AggregateField]) => boolean
-  selection?: Selection<Item>
+  selection?: Selection<Item, Key>
   defaultValue: Aggregation
 }): Aggregate<Item, Key, AggregateField, Aggregation> {
-  const index = createIndex({kv, field: aggregateField, selection})
+  const index = selection
+    ? createIndex({field: aggregateField, selection})
+    : createIndex({kv, field: aggregateField})
+
   const values = combine(kv.state.store, index.groups, (kv, indexGroups) => {
     const result = new Map<Item[AggregateField], Aggregation>()
 

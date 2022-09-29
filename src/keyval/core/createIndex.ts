@@ -1,8 +1,19 @@
-import {combine} from 'effector'
-
 import type {ListApi, Selection, IndexApi, PossibleKey} from './types'
 import {addAlwaysActivatedConsumer} from './consumerPort'
 
+export function createIndex<
+  Item,
+  Key extends PossibleKey,
+  Field extends keyof Item,
+>(args: {
+  field: Field
+  selection: Selection<Item, Key>
+}): IndexApi<Item, Key, Field>
+export function createIndex<
+  Item,
+  Key extends PossibleKey,
+  Field extends keyof Item,
+>(args: {field: Field; kv: ListApi<Item, Key>}): IndexApi<Item, Key, Field>
 export function createIndex<
   Item,
   Key extends PossibleKey,
@@ -12,16 +23,19 @@ export function createIndex<
   field,
   selection,
 }: {
-  kv: ListApi<Item, Key>
+  kv?: ListApi<Item, Key>
   field: Field
-  selection?: Selection<Item>
+  selection?: Selection<Item, Key>
 }): IndexApi<Item, Key, Field> {
-  const fn = ({ref}: {ref: Record<Key, Item>}, items?: Item[]) => {
+  if (!kv && !selection) {
+    throw new Error(`Can't create index without kv or selection`)
+  }
+
+  const fn = (items: Record<Key, Item>) => {
     const result = new Map<Item[Field], Key[]>()
 
-    for (const key in ref) {
-      const value = ref[key]
-      if (items && !items.includes(value)) continue
+    for (const key in items) {
+      const value = items[key]
       const indexValue = value[field]
       let bucket = result.get(indexValue)
       if (!bucket) {
@@ -38,11 +52,10 @@ export function createIndex<
   }
 
   const groups = selection
-    ? combine(kv.state.store, selection.state.items, fn)
-    : kv.state.store.map((map) => fn(map))
+    ? selection.state.items.map(fn)
+    : kv!.state.store.map(({ref}) => fn(ref))
 
   return {
-    kv,
     field,
     groups,
   }

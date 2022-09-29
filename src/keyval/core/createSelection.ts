@@ -1,39 +1,33 @@
 import {combine, createStore, createEvent, Event, sample, split} from 'effector'
 
 import {forIn} from './forIn'
-import {areArraysDifferent} from './changeDetection'
+import {filterObj} from './filterObj'
+import {areObjectsDifferent} from './changeDetection'
 import type {
   ListApi,
   SwitchSelection,
-  FilterSelection,
   Selection,
+  PossibleKey,
+  SelectionItem,
 } from './types'
 import {createConsumerPort, getConsumerId} from './consumerPort'
 
-export function createSwitch<
-  Item,
-  Shape extends Record<string, Selection<Item> | ((item: Item) => boolean)>,
->({
-  kv,
+export function createSwitch<Shape extends {[k: string]: Selection<any, any>}>({
   cases,
   initialCase,
 }: {
-  kv: ListApi<Item, any>
   cases: Shape
   initialCase: keyof Shape
-}): SwitchSelection<Item, {[K in keyof Shape]: Selection<Item>}> {
+}): SwitchSelection<Shape> {
+  type ShapeCase = keyof Shape
+  type ShapeItem = SelectionItem<SwitchSelection<Shape>>
+
   const port = createConsumerPort()
   const $currentCase = createStore(initialCase)
-  const caseApi = {} as {[K in keyof Shape]: Event<void>}
-  const normCases = {} as {[K in keyof Shape]: Selection<Item>}
-  const selectionActivation = createEvent<keyof Shape>()
-  forIn(cases, (selectionOrFn, field) => {
-    normCases[field] =
-      typeof selectionOrFn === 'function'
-        ? createSelection(kv, selectionOrFn)
-        : (selectionOrFn as Selection<Item>)
-  })
-  forIn(normCases, (selection, field) => {
+  const caseApi = {} as {[K in ShapeCase]: Event<void>}
+  const selectionActivation = createEvent<ShapeCase>()
+
+  forIn(cases, (selection, field) => {
     const activator = createEvent<void>()
     $currentCase.on(activator, () => field)
     caseApi[field] = activator
@@ -58,10 +52,12 @@ export function createSwitch<
       target: deactivateCase,
     })
   })
-  const caseNames = Object.keys(normCases) as Array<keyof Shape>
-  const caseValues = Object.values(normCases)
-  const $list = createStore([] as Item[])
+  const caseNames = Object.keys(cases) as Array<ShapeCase>
+  const caseValues = Object.values(cases)
+
+  const $items = createStore({} as Record<any, ShapeItem>)
   const $size = createStore(0)
+
   sample({
     clock: [$currentCase, port.api.activated],
     source: $currentCase,
@@ -74,7 +70,7 @@ export function createSwitch<
       ...caseValues.map(({state}) => state.items),
     ]),
     filter: port.state.active,
-    target: $list,
+    target: $items,
     fn: ([currentCase, ...lists]) => lists[caseNames.indexOf(currentCase)],
   })
   sample({
@@ -86,30 +82,39 @@ export function createSwitch<
 
   return {
     state: {
-      currentCase: $currentCase,
-      items: $list,
+      items: $items,
       size: $size,
+      currentCase: $currentCase,
     },
     api: caseApi,
-    cases: normCases,
+    cases,
     port,
   }
 }
 
-export function createSelection<Item>(
-  kv: ListApi<Item, any>,
-  fn: (item: Item) => boolean,
-): FilterSelection<Item> {
+export function createSelection<
+  Item,
+  Key extends PossibleKey,
+  SelectedItem extends Item,
+>(
+  kv: ListApi<Item, Key>,
+  fn: ((item: Item) => item is SelectedItem) | ((item: Item) => boolean),
+): Selection<SelectedItem, any> {
   const port = createConsumerPort()
-  const $items = createStore<Item[]>([], {updateFilter: areArraysDifferent})
-  const $size = $items.map((items) => items.length)
+  const $items = createStore<Record<Key, SelectedItem>>(
+    {} as Record<Key, SelectedItem>,
+    {
+      updateFilter: areObjectsDifferent,
+    },
+  )
+  const $size = $items.map((items) => Object.keys(items).length)
 
   sample({
     clock: [kv.state.store, port.api.activated],
     source: kv.state.store,
     filter: port.state.active,
     target: $items,
-    fn: (kv) => Object.values<Item>(kv.ref).filter(fn),
+    fn: (kv) => filterObj(kv.ref, fn),
   })
 
   return {
@@ -117,7 +122,6 @@ export function createSelection<Item>(
       items: $items,
       size: $size,
     },
-    fn,
     port,
   }
 }
