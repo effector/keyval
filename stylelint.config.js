@@ -48,6 +48,6 @@ const config = {
     // Fix "100%" notation
     'alpha-value-notation': 'number',
   },
-};
+}
 
-module.exports = config;
+module.exports = config

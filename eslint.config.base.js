@@ -5,7 +5,7 @@ const parserOptions = {
   project: './tsconfig.json',
   tsconfigRootDir: './',
   warnOnUnsupportedTypeScriptVersion: true,
-};
+}
 
 /** @type import('eslint').Linter.Config */
 const config = {
@@ -69,7 +69,7 @@ const config = {
       rules: {
         'unicorn/prefer-module': 'off',
         'simple-import-sort/imports': 'off',
-        'import/order': ['error', { 'newlines-between': 'always' }],
+        'import/order': ['error', {'newlines-between': 'always'}],
         '@typescript-eslint/no-require-imports': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         // Warnings
@@ -95,14 +95,14 @@ const config = {
     ],
     'import/prefer-default-export': 'off',
     'import/no-default-export': 'error',
-    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+    'no-plusplus': ['error', {allowForLoopAfterthoughts: true}],
     'no-restricted-syntax': [
       'error',
       'LabeledStatement',
       'WithStatement',
       'SequenceExpression',
     ],
-    'no-restricted-imports': ['error', { patterns: ['../*'] }],
+    'no-restricted-imports': ['error', {patterns: ['../*']}],
     'unicorn/prevent-abbreviations': [
       'error',
       {
@@ -131,7 +131,7 @@ const config = {
     ],
     'unicorn/no-null': 'off',
     'unicorn/no-fn-reference-in-iterator': 'off',
-    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
+    'react/jsx-filename-extension': ['error', {extensions: ['.jsx', '.tsx']}],
     'react/require-default-props': [
       'warn',
       {
@@ -140,6 +140,6 @@ const config = {
       },
     ],
   },
-};
+}
 
-module.exports = config;
+module.exports = config
