@@ -9,6 +9,5 @@ export type {
   ItemApi,
   IndexApi,
   Aggregate,
-  FilterSelection,
   PossibleKey,
 } from './types'

@@ -2,6 +2,6 @@
 const config = {
   singleQuote: true,
   proseWrap: 'always',
-};
+}
 
-module.exports = config;
+module.exports = config

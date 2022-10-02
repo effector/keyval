@@ -8,7 +8,7 @@ import {
   createAggregate,
 } from '../keyval/core'
 
-import type {Todo, InputTodo} from './types'
+import type {Todo, InputTodo, ActiveTodo} from './types'
 
 export const todos = createListApi<Todo, string>({
   keygen: () => `id-${Math.random().toString(36).slice(2, 10)}`,
@@ -29,12 +29,14 @@ export const addTodo = todos.addItemTree({
 export const toggleAll = todos.setAll('completed')
 export const clearCompleted = todos.removeByField('completed')
 
-const activeTodos = createSelection(todos, ({completed}) => !completed)
+const activeTodos = createSelection(
+  todos,
+  (todo): todo is ActiveTodo => !todo.completed,
+)
 const completedTodos = createSelection(todos, ({completed}) => completed)
 const allTodos = createSelection(todos, () => true)
 
 export const taskTreeSelection = createSwitch({
-  kv: todos,
   cases: {
     active: activeTodos,
     completed: completedTodos,
@@ -61,9 +63,8 @@ export const subtasksTotalAmount = createAggregate({
 export const $count = taskTreeSelection.state.size
 
 export const subtaskIndex = createIndex({
-  kv: todos,
-  field: 'childOf',
   selection: taskTreeSelection,
+  field: 'childOf',
 })
 
 export const todoItemApi = createItemApi({

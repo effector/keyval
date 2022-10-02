@@ -18,7 +18,7 @@ export type ListApi<Item, Key extends PossibleKey> = {
   removeItem<ChildField extends keyof Item>(config: {
     removeChilds: {
       childField: ChildField
-      selection?: Selection<Item>
+      selection?: Selection<Item, Key>
     }
   }): Event<{key: Key}>
   addItem<Params>(config: {fn: (params: Params) => Item}): Event<Params>
@@ -52,16 +52,15 @@ export type ListApi<Item, Key extends PossibleKey> = {
   }>
 }
 
-export type InputItemTree<Item> = {
-  value: Item
-  childs: InputItemTree<Item>[]
-}
 type Events<T extends {[key: string]: any}> = {[K in keyof T]: Event<T[K]>}
 type Stores<T extends {[key: string]: any}> = {[K in keyof T]: Store<T[K]>}
+export type SelectionItem<S> = S extends Selection<infer Item, any>
+  ? Item
+  : never
 
-export type Selection<Item> = {
+export type Selection<Item, Key extends PossibleKey> = {
   state: Stores<{
-    items: Item[]
+    items: Record<Key, Item>
     size: number
   }>
   port: ConsumerPort
@@ -81,27 +80,16 @@ export type ConsumerPort = {
   consumersTotal: number
 }
 
-export type SwitchSelection<
-  Item,
-  Shape extends Record<string, Selection<Item>>,
-> = {
-  state: Stores<{
-    currentCase: keyof Shape
-    items: Item[]
-    size: number
-  }>
+export interface SwitchSelection<
+  Shape extends Record<string, Selection<any, any>>,
+> extends Selection<SelectionItem<Shape[keyof Shape]>, any> {
   api: {[K in keyof Shape]: Event<void>}
   cases: Shape
-  port: ConsumerPort
-}
-
-export type FilterSelection<Item> = {
   state: Stores<{
-    items: Item[]
+    items: Record<any, SelectionItem<Shape[keyof Shape]>>
     size: number
+    currentCase: keyof Shape
   }>
-  fn: (item: Item) => boolean
-  port: ConsumerPort
 }
 
 export type ItemApi<
@@ -118,10 +106,8 @@ export type IndexApi<
   Key extends PossibleKey,
   ChildField extends keyof Item,
 > = {
-  kv: ListApi<Item, Key>
   field: ChildField
   groups: Store<Map<Item[ChildField], Key[]>>
-  selection?: Selection<Item>
 }
 
 export type Aggregate<
@@ -135,7 +121,7 @@ export type Aggregate<
   config: {
     aggregateField: AggregateField
     fn: (items: Item[], groupID: Item[AggregateField]) => Aggregation
-    selection?: Selection<Item>
+    selection?: Selection<Item, Key>
     when?: (item: Item, groupID: Item[AggregateField]) => boolean
     defaultValue: Aggregation
   }

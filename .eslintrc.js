@@ -7,6 +7,6 @@ const config = {
     'jsx-a11y/label-has-associated-control': 'off',
     'jsx-a11y/control-has-associated-label': 'off',
   },
-};
+}
 
-module.exports = config;
+module.exports = config

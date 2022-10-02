@@ -6,6 +6,8 @@ export type Todo = {
   childOf: string | null
 }
 
+export type ActiveTodo = Todo & {completed: false}
+
 export type InputTodo =
   | string
   | {title: string; parentTask?: string | null; subtasks?: InputTodo[]}

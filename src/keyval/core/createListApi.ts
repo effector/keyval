@@ -96,7 +96,7 @@ export function createListApi<Item, Key extends PossibleKey>({
     removeItem<ChildField extends keyof Item>(config?: {
       removeChilds: {
         childField: ChildField
-        selection?: Selection<Item>
+        selection?: Selection<Item, Key>
       }
     }) {
       if (!config) {
@@ -106,11 +106,13 @@ export function createListApi<Item, Key extends PossibleKey>({
       const {
         removeChilds: {childField, selection},
       } = config
-      const index = createIndex({
-        kv: listApi,
-        field: childField,
-        selection,
-      })
+      const index = selection
+        ? createIndex({
+            field: childField,
+            selection,
+          })
+        : createIndex({kv: listApi, field: childField})
+
       const removeItemTrigger = createEvent<{key: Key}>()
       function processItem(
         key: Key & Item[ChildField] & string,
