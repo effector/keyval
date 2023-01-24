@@ -1,7 +1,7 @@
 import {createStore, createEvent, sample} from 'effector'
 
 import type {PossibleKey, ListApi, Selection} from './types'
-import {createIndex} from './createIndex'
+import {createGroup} from './createGroup'
 
 export function createListApi<Item, Key extends PossibleKey>({
   keygen,
@@ -107,11 +107,11 @@ export function createListApi<Item, Key extends PossibleKey>({
         removeChilds: {childField, selection},
       } = config
       const index = selection
-        ? createIndex({
+        ? createGroup({
             field: childField,
             selection,
           })
-        : createIndex({kv: listApi, field: childField})
+        : createGroup({kv: listApi, field: childField})
 
       const removeItemTrigger = createEvent<{key: Key}>()
       function processItem(

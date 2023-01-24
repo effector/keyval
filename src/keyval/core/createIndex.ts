@@ -1,7 +1,7 @@
 import type {ListApi, Selection, IndexApi, PossibleKey} from './types'
 import {addAlwaysActivatedConsumer} from './consumerPort'
 
-export function createIndex<
+export function createGroup<
   Item,
   Key extends PossibleKey,
   Field extends keyof Item,
@@ -9,12 +9,12 @@ export function createIndex<
   field: Field
   selection: Selection<Item, Key>
 }): IndexApi<Item, Key, Field>
-export function createIndex<
+export function createGroup<
   Item,
   Key extends PossibleKey,
   Field extends keyof Item,
 >(args: {field: Field; kv: ListApi<Item, Key>}): IndexApi<Item, Key, Field>
-export function createIndex<
+export function createGroup<
   Item,
   Key extends PossibleKey,
   Field extends keyof Item,

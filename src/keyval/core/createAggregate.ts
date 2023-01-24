@@ -1,7 +1,7 @@
 import {combine} from 'effector'
 import type {Aggregate, ListApi, Selection, PossibleKey} from './types'
 
-import {createIndex} from './createIndex'
+import {createGroup} from './createGroup'
 
 export function createAggregate<
   Item,
@@ -24,8 +24,8 @@ export function createAggregate<
   defaultValue: Aggregation
 }): Aggregate<Item, Key, AggregateField, Aggregation> {
   const index = selection
-    ? createIndex({field: aggregateField, selection})
-    : createIndex({kv, field: aggregateField})
+    ? createGroup({field: aggregateField, selection})
+    : createGroup({kv, field: aggregateField})
 
   const values = combine(kv.state.store, index.groups, (kv, indexGroups) => {
     const result = new Map<Item[AggregateField], Aggregation>()

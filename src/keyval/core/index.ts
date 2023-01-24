@@ -1,7 +1,7 @@
 export {createSwitch, createSelection} from './createSelection'
 export {createListApi} from './createListApi'
 export {createItemApi} from './createItemApi'
-export {createIndex} from './createIndex'
+export {createGroup} from './createGroup'
 export {createAggregate} from './createAggregate'
 export type {
   ListApi,

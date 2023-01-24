@@ -4,7 +4,7 @@ import {
   createSwitch,
   createSelection,
   createItemApi,
-  createIndex,
+  createGroup,
   createAggregate,
 } from '../keyval/core'
 
@@ -62,7 +62,7 @@ export const subtasksTotalAmount = createAggregate({
 
 export const $count = taskTreeSelection.state.size
 
-export const subtaskIndex = createIndex({
+export const subtaskGroups = createGroup({
   selection: taskTreeSelection,
   field: 'childOf',
 })

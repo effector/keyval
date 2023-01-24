@@ -1,2 +1,2 @@
-export {useItemApi, useItemState, useIndex} from './impl'
+export {useItemApi, useItemState, useGroup} from './impl'
 export {useAggregate} from './useAggregate'

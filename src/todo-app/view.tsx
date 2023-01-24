@@ -1,7 +1,7 @@
 import './main.css'
 import type {KeyboardEvent, ChangeEvent} from 'react'
 import {useStore} from 'effector-react'
-import {useItemState, useItemApi, useIndex, useAggregate} from '../keyval/react'
+import {useItemState, useItemApi, useGroup, useAggregate} from '../keyval/react'
 
 import {
   $count,
@@ -10,7 +10,7 @@ import {
   clearCompleted,
   toggleAll,
   todoItemApi,
-  subtaskIndex,
+  subtaskGroups,
   subtasksVisibleAmount,
   subtasksTotalAmount,
   changeDraft,
@@ -165,7 +165,7 @@ export const TodoItem = ({id, nesting}: {id: string; nesting: number}) => {
 }
 const TodoSubtree = ({nesting, id}: {nesting: number; id: string | null}) => (
   <ul className="todo-list" style={{'--nesting': nesting} as any}>
-    {useIndex(subtaskIndex, id, (id) =>
+    {useGroup(subtaskGroups, id, (id) =>
       id === null ? <></> : <TodoItem id={id} nesting={nesting} />,
     )}
   </ul>

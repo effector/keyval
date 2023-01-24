@@ -37,7 +37,7 @@ export function useItemApi<
   return api
 }
 
-export function useIndex<Item, ChildField extends keyof Item>(
+export function useGroup<Item, ChildField extends keyof Item>(
   index: IndexApi<Item, any, ChildField>,
   value: Item[ChildField],
   view: (key: Item[ChildField]) => React.ReactElement,
