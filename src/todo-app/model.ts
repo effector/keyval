@@ -29,18 +29,14 @@ export const addTodo = todos.addItemTree({
 export const toggleAll = todos.setAll('completed')
 export const clearCompleted = todos.removeByField('completed')
 
-const activeTodos = createSelection(
-  todos,
-  (todo): todo is ActiveTodo => !todo.completed,
-)
-const completedTodos = createSelection(todos, ({completed}) => completed)
-const allTodos = createSelection(todos, () => true)
-
 export const taskTreeSelection = createSwitch({
   cases: {
-    active: activeTodos,
-    completed: completedTodos,
-    all: allTodos,
+    active: createSelection(
+      todos,
+      (todo): todo is ActiveTodo => !todo.completed,
+    ),
+    completed: createSelection(todos, ({completed}) => completed),
+    all: createSelection(todos, () => true),
   },
   initialCase: 'all',
 })
