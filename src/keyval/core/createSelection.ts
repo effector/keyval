@@ -1,8 +1,6 @@
 import {combine, createStore, createEvent, Event, sample, split} from 'effector'
 
-import {forIn} from './forIn'
-import {filterObj} from './filterObj'
-import {areObjectsDifferent} from './changeDetection'
+import {areObjectsDifferent, forIn, filterObj} from './utils'
 import type {
   ListApi,
   SwitchSelection,

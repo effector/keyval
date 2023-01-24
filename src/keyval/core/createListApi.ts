@@ -1,5 +1,6 @@
 import {createStore, createEvent, sample} from 'effector'
 
+import {filterObj, arrifyIterate} from './utils'
 import type {PossibleKey, ListApi, Selection} from './types'
 import {createGroup} from './createGroup'
 
@@ -57,7 +58,7 @@ export function createListApi<Item, Key extends PossibleKey>({
     }
   })
   $kv.on(removeWhen, (kv, {field}) => ({
-    ref: filterKV(kv.ref, (val) => !val[field]),
+    ref: filterObj(kv.ref, (val) => !val[field]),
   }))
   $kv.on(removeItem, (kv, itemOrItems) => {
     let kvChanged = false
@@ -223,24 +224,4 @@ export function createListApi<Item, Key extends PossibleKey>({
     removeByField: (field) => removeWhen.prepend(() => ({field})),
   }
   return listApi
-}
-
-function arrifyIterate<T>(
-  value: T[] | T | null | void,
-  fn: (value: T) => void,
-) {
-  if (value === null || value === undefined) return
-  if (Array.isArray(value)) value.forEach((item) => fn(item))
-  else fn(value)
-}
-
-function filterKV<Key extends PossibleKey, Item>(
-  kv: Record<Key, Item>,
-  callback: (item: Item, key?: Key) => boolean,
-): Record<Key, Item> {
-  return Object.fromEntries(
-    Object.entries(kv).filter(([key, value]) =>
-      callback(value as Item, key as Key),
-    ),
-  ) as Record<Key, Item>
 }
