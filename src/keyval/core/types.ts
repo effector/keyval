@@ -3,10 +3,10 @@ import type {Event, Store} from 'effector'
 export type PossibleKey = string | number
 
 export type ListApi<Item, Key extends PossibleKey> = {
-  setField<Path extends keyof Item>(
+  setItemField<Path extends keyof Item>(
     path: Path,
   ): Event<{key: Key; value: Item[Path]}>
-  removeByField(match: keyof Item): Event<void>
+  removeItemsByField(match: keyof Item): Event<void>
   setAll<Path extends keyof Item>(match: Path): Event<Item[Path]>
   mapItem(
     fn: (value: Item, payload: undefined) => Partial<Item>,

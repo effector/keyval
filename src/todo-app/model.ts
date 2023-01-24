@@ -27,7 +27,7 @@ export const addTodo = todos.addItemTree({
   getChilds: (item) => item.subtasks,
 })
 export const toggleAll = todos.setAll('completed')
-export const clearCompleted = todos.removeByField('completed')
+export const clearCompleted = todos.removeItemsByField('completed')
 
 export const taskTreeSelection = createSwitch({
   cases: {
@@ -74,12 +74,12 @@ export const todoItemApi = createItemApi({
     remove: todos.removeItem({
       removeChilds: {childField: 'childOf'},
     }),
-    setEditing: todos.setField('editing'),
+    setEditing: todos.setItemField('editing'),
     editMode: todos.mapItem(({title}, mode: 'on' | 'off') => ({
       editing: mode === 'on',
       titleEdited: title,
     })),
-    onChange: todos.setField('titleEdited'),
+    onChange: todos.setItemField('titleEdited'),
   },
 })
 

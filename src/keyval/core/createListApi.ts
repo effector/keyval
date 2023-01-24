@@ -211,7 +211,7 @@ export function createListApi<Item, Key extends PossibleKey>({
       })
       return clock
     },
-    setField(field) {
+    setItemField(field) {
       const fn = (item: Item, upd: any) => ({[field]: upd} as Partial<Item>)
       const clock = createEvent<any>()
       sample({
@@ -221,7 +221,7 @@ export function createListApi<Item, Key extends PossibleKey>({
       })
       return clock
     },
-    removeByField: (field) => removeWhen.prepend(() => ({field})),
+    removeItemsByField: (field) => removeWhen.prepend(() => ({field})),
   }
   return listApi
 }
