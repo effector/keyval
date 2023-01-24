@@ -1,7 +1,12 @@
 import './main.css'
 import type {KeyboardEvent, ChangeEvent} from 'react'
 import {useStore} from 'effector-react'
-import {useItemState, useItemApi, useGroup, useAggregate} from '../keyval/react'
+import {
+  useItemState,
+  useItemApi,
+  useGroup,
+  useComputedField,
+} from '../keyval/react'
 
 import {
   $count,
@@ -116,8 +121,8 @@ export const TodoFilters = () => {
 export const TodoItem = ({id, nesting}: {id: string; nesting: number}) => {
   const api = useItemApi(id, todoItemApi)
   const {title, completed, editing, titleEdited} = useItemState(id, todoItemApi)
-  const visibleSubtasks = useAggregate(subtasksVisibleAmount, id)
-  const totalSubtasks = useAggregate(subtasksTotalAmount, id)
+  const visibleSubtasks = useComputedField(subtasksVisibleAmount, id)
+  const totalSubtasks = useComputedField(subtasksTotalAmount, id)
   const onToggle = () => api.toggle()
   const onRemove = () => api.remove()
   const onAddChild = () => {

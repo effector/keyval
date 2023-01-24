@@ -5,7 +5,7 @@ import {
   createSelection,
   createItemApi,
   createGroup,
-  createAggregate,
+  createComputedField,
 } from '../keyval/core'
 
 import type {Todo, InputTodo, ActiveTodo} from './types'
@@ -45,7 +45,7 @@ export const taskTreeSelection = createSwitch({
   initialCase: 'all',
 })
 
-export const subtasksVisibleAmount = createAggregate({
+export const subtasksVisibleAmount = createComputedField({
   kv: todos,
   aggregateField: 'childOf',
   fn: (childs) => childs.length,
@@ -53,7 +53,7 @@ export const subtasksVisibleAmount = createAggregate({
   defaultValue: 0,
 })
 
-export const subtasksTotalAmount = createAggregate({
+export const subtasksTotalAmount = createComputedField({
   kv: todos,
   aggregateField: 'childOf',
   fn: (childs) => childs.length,

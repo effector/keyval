@@ -1,7 +1,7 @@
 import {useStoreMap} from 'effector-react'
 import type {Aggregate, PossibleKey} from '../core'
 
-export function useAggregate<
+export function useComputedField<
   Item,
   IndexField extends keyof Item,
   Key extends PossibleKey,

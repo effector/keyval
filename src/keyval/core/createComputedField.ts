@@ -3,7 +3,7 @@ import type {Aggregate, ListApi, Selection, PossibleKey} from './types'
 
 import {createGroup} from './createGroup'
 
-export function createAggregate<
+export function createComputedField<
   Item,
   AggregateField extends keyof Item,
   Key extends PossibleKey,
