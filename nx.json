@@ -1,6 +1,6 @@
 {
     "$schema": "./node_modules/nx/schemas/nx-schema.json",
-    "npmScope": "withease",
+    "npmScope": "effector",
     "affected": {
       "defaultBase": "origin/main"
     },
