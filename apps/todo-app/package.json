@@ -1,0 +1,8 @@
+{
+  "name": "@withease/i18next",
+  "version": "0.1.0",
+  "type": "commonjs",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^3.1.0"
+  }
+}

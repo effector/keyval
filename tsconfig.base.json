@@ -8,7 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": false,
-    "target": "es2018",
+    "target": "es2019",
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -18,3 +18,4 @@
     }
   },
   "exclude": ["node_modules", "tmp"]
+}

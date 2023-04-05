@@ -1,1 +1,0 @@
-export {TodoApp} from './view'

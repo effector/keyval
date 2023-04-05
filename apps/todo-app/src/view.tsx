@@ -6,7 +6,7 @@ import {
   useItemApi,
   useGroup,
   useComputedField,
-} from '../keyval/react'
+} from '@effector/keyval-react'
 
 import {
   $count,
