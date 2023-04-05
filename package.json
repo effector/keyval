@@ -18,6 +18,8 @@
     "changes": "changeset"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
     "effector": "^22.3.0",
     "effector-react": "^22.1.5",
     "react": "^18.2.0",
@@ -43,8 +45,6 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/stylelint": "^13.13.1",
-    "@typescript-eslint/eslint-plugin": "^4.28.3",
-    "@typescript-eslint/parser": "^4.28.3",
     "@vitejs/plugin-react": "^3.1.0",
     "@vitest/ui": "^0.25.8",
     "bytes-iec": "^3.1.1",

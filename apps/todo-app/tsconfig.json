@@ -10,7 +10,7 @@
     "isolatedModules": true,
     "types": ["vite/client"],
     "noEmit": true,
-    "lib": ["ESNext"],
+    "lib": ["DOM","DOM.Iterable", "ESNext"],
     "allowJs": false,
     "esModuleInterop": false,
     "skipLibCheck": true,
@@ -19,5 +19,5 @@
     "jsx": "react-jsx"
   },
   "files": [],
-  "include": ["**/*.js", "**/*.ts", "./src/view.tsx"]
+  "include": ["**/*.js", "**/*.ts", "./src/view.tsx", "src/main.tsx"]
 }
