@@ -3,7 +3,7 @@
   "version": 2,
   "projects": {
     "core": "packages/core",
-    "react": "packages/react",
-    "core-react-demo": "apps/todo-app"
+    "core-react-demo": "apps/todo-app",
+    "react": "packages/react"
   }
 }

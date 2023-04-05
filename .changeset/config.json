@@ -5,6 +5,6 @@
   "fixed": [],
   "linked": [],
   "access": "public",
-  "baseBranch": "origin/master",
+  "baseBranch": "feat/release-flow",
   "updateInternalDependencies": "patch"
 }

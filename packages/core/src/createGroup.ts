@@ -1,62 +1,62 @@
-import type {ListApi, Selection, IndexApi, PossibleKey} from './types'
-import {addAlwaysActivatedConsumer} from './consumerPort'
+import type { ListApi, Selection, IndexApi, PossibleKey } from './types';
+import { addAlwaysActivatedConsumer } from './consumerPort';
 
 export function createGroup<
   Item,
   Key extends PossibleKey,
-  Field extends keyof Item,
+  Field extends keyof Item
 >(args: {
-  field: Field
-  selection: Selection<Item, Key>
-}): IndexApi<Item, Key, Field>
+  field: Field;
+  selection: Selection<Item, Key>;
+}): IndexApi<Item, Key, Field>;
 export function createGroup<
   Item,
   Key extends PossibleKey,
-  Field extends keyof Item,
->(args: {field: Field; kv: ListApi<Item, Key>}): IndexApi<Item, Key, Field>
+  Field extends keyof Item
+>(args: { field: Field; kv: ListApi<Item, Key> }): IndexApi<Item, Key, Field>;
 export function createGroup<
   Item,
   Key extends PossibleKey,
-  Field extends keyof Item,
+  Field extends keyof Item
 >({
   kv,
   field,
   selection,
 }: {
-  kv?: ListApi<Item, Key>
-  field: Field
-  selection?: Selection<Item, Key>
+  kv?: ListApi<Item, Key>;
+  field: Field;
+  selection?: Selection<Item, Key>;
 }): IndexApi<Item, Key, Field> {
   if (!kv && !selection) {
-    throw new Error(`Can't create index without kv or selection`)
+    throw new Error(`Can't create index without kv or selection`);
   }
 
   const fn = (items: Record<Key, Item>) => {
-    const result = new Map<Item[Field], Key[]>()
+    const result = new Map<Item[Field], Key[]>();
 
     for (const key in items) {
-      const value = items[key]
-      const indexValue = value[field]
-      let bucket = result.get(indexValue)
+      const value = items[key];
+      const indexValue = value[field];
+      let bucket = result.get(indexValue);
       if (!bucket) {
-        bucket = []
-        result.set(indexValue, bucket)
+        bucket = [];
+        result.set(indexValue, bucket);
       }
-      bucket.push(key)
+      bucket.push(key);
     }
-    return result
-  }
+    return result;
+  };
 
   if (selection) {
-    addAlwaysActivatedConsumer(selection.port)
+    addAlwaysActivatedConsumer(selection.port);
   }
 
   const groups = selection
     ? selection.state.items.map(fn)
-    : kv!.state.store.map(({ref}) => fn(ref))
+    : kv!.state.store.map(({ ref }) => fn(ref));
 
   return {
     field,
     groups,
-  }
+  };
 }

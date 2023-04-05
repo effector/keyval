@@ -13,12 +13,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": "../..",
     "paths": {
-      "@effector/keyval-core": [
-        "packages/core/index.ts"
-      ],
-      "@effector/keyval-react": [
-        "packages/react/index.ts"
-      ]
+      "@effector/keyval-core": ["packages/core/index.ts"],
+      "@effector/keyval-react": ["packages/react/index.ts"]
     },
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -30,13 +26,7 @@
     "incremental": true,
     "tsBuildInfoFile": "/Users/yanlavryushev/Desktop/keyval/node_modules/.pnpm/vitest@0.26.3_@vitest+ui@0.25.8/node_modules/vitest/dist/tsconfig.tmp.tsbuildinfo"
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ],
+  "exclude": ["node_modules", "tmp"],
   "files": [],
-  "include": [
-    "**/*.js",
-    "**/*.ts"
-  ]
+  "include": ["**/*.js", "**/*.ts"]
 }

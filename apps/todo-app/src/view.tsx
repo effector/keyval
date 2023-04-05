@@ -1,12 +1,12 @@
-import './main.css'
-import { KeyboardEvent,  ChangeEvent} from 'react'
-import {useStore} from 'effector-react'
+import './main.css';
+import { KeyboardEvent, ChangeEvent } from 'react';
+import { useStore } from 'effector-react';
 import {
   useItemState,
   useItemApi,
   useGroup,
   useComputedField,
-} from '@effector/keyval-react'
+} from '@effector/keyval-react';
 
 import {
   $count,
@@ -21,28 +21,28 @@ import {
   changeDraft,
   addTodoFromDraft,
   $descriptionDraft,
-} from './model'
+} from './model';
 
 export const TodoApp = () => {
-  const draft = useStore($descriptionDraft)
+  const draft = useStore($descriptionDraft);
   const onChangeDraft = (e: ChangeEvent<HTMLInputElement>) => {
-    changeDraft(e.target.value)
-  }
+    changeDraft(e.target.value);
+  };
   const onAddTodo = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== 'Enter') return
-    e.preventDefault()
-    const input = e.currentTarget
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    const input = e.currentTarget;
     if (input.value && input.value.trim()) {
       addTodo({
         title: input.value.trim(),
         parentTask: null,
-      })
+      });
     }
-  }
+  };
   const onToggleAll = (e: ChangeEvent<HTMLInputElement>) => {
-    toggleAll(e.currentTarget.checked)
-  }
-  const onClearCompleted = () => clearCompleted()
+    toggleAll(e.currentTarget.checked);
+  };
+  const onClearCompleted = () => clearCompleted();
   return (
     <section className="todoapp">
       <div>
@@ -79,23 +79,23 @@ export const TodoApp = () => {
         </footer>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export const TodoCount = () => {
-  const count = useStore($count)
+  const count = useStore($count);
   return (
     <span className="todo-count">
       <strong>{count}</strong>
       <span>&nbsp;{count === 1 ? 'item' : 'items'}</span>
     </span>
-  )
-}
+  );
+};
 export const TodoFilters = () => {
-  const mode = useStore(taskTreeSelection.state.currentCase)
-  const onAll = () => taskTreeSelection.api.all()
-  const onActive = () => taskTreeSelection.api.active()
-  const onCompleted = () => taskTreeSelection.api.completed()
+  const mode = useStore(taskTreeSelection.state.currentCase);
+  const onAll = () => taskTreeSelection.api.all();
+  const onActive = () => taskTreeSelection.api.active();
+  const onCompleted = () => taskTreeSelection.api.completed();
   return (
     <ul data-filter-mode={mode}>
       <li>
@@ -115,28 +115,31 @@ export const TodoFilters = () => {
         </a>
       </li>
     </ul>
-  )
-}
+  );
+};
 
-export const TodoItem = ({id, nesting}: {id: string; nesting: number}) => {
-  const api = useItemApi(id, todoItemApi)
-  const {title, completed, editing, titleEdited} = useItemState(id, todoItemApi)
-  const visibleSubtasks = useComputedField(subtasksVisibleAmount, id)
-  const totalSubtasks = useComputedField(subtasksTotalAmount, id)
-  const onToggle = () => api.toggle()
-  const onRemove = () => api.remove()
+export const TodoItem = ({ id, nesting }: { id: string; nesting: number }) => {
+  const api = useItemApi(id, todoItemApi);
+  const { title, completed, editing, titleEdited } = useItemState(
+    id,
+    todoItemApi
+  );
+  const visibleSubtasks = useComputedField(subtasksVisibleAmount, id);
+  const totalSubtasks = useComputedField(subtasksTotalAmount, id);
+  const onToggle = () => api.toggle();
+  const onRemove = () => api.remove();
   const onAddChild = () => {
-    addTodoFromDraft({childOf: id})
-  }
-  const onEdit = () => api.editMode('on')
-  const onSave = () => api.save()
+    addTodoFromDraft({ childOf: id });
+  };
+  const onEdit = () => api.editMode('on');
+  const onSave = () => api.save();
   const onConfirm = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') api.save()
-    else if (e.key === 'Escape') api.editMode('off')
-  }
+    if (e.key === 'Enter') api.save();
+    else if (e.key === 'Escape') api.editMode('off');
+  };
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    api.onChange(e.target.value)
-  }
+    api.onChange(e.target.value);
+  };
   return (
     <>
       <li data-completed={completed || null} data-editing={editing || null}>
@@ -166,12 +169,18 @@ export const TodoItem = ({id, nesting}: {id: string; nesting: number}) => {
       </li>
       <TodoSubtree nesting={nesting + 1} id={id} />
     </>
-  )
-}
-const TodoSubtree = ({nesting, id}: {nesting: number; id: string | null}) => (
-  <ul className="todo-list" style={{'--nesting': nesting} as any}>
+  );
+};
+const TodoSubtree = ({
+  nesting,
+  id,
+}: {
+  nesting: number;
+  id: string | null;
+}) => (
+  <ul className="todo-list" style={{ '--nesting': nesting } as any}>
     {useGroup(subtaskGroups, id, (id) =>
-      id === null ? <></> : <TodoItem id={id} nesting={nesting} />,
+      id === null ? <></> : <TodoItem id={id} nesting={nesting} />
     )}
   </ul>
-)
+);
