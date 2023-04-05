@@ -1,5 +1,5 @@
 import './main.css'
-import type {KeyboardEvent, ChangeEvent} from 'react'
+import { KeyboardEvent,  ChangeEvent} from 'react'
 import {useStore} from 'effector-react'
 import {
   useItemState,

@@ -4,9 +4,9 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   esbuild: {
-    loader: 'jsx',
+    loader: 'tsx',
   },
   cacheDir: '../../../node_modules/.vite/todo-app',
-  plugins: [react(), tsconfigPaths()],
+  plugins: [tsconfigPaths(), react()],
   build: { outDir: '../../../dist/apps/todo-app' },
 });
