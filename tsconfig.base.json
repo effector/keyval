@@ -1,29 +1,20 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "checkJs": true,
-    "skipLibCheck": true,
-    "noImplicitAny": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "downlevelIteration": true,
-    "outDir": "typescript",
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "isolatedModules": true,
-    "baseUrl": "./",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": false,
+    "target": "es2018",
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"]
+      "@effector/keyval-core": ["packages/core/index.ts"],
+      "@effector/keyval-react": ["packages/react/index.ts"]
     }
   },
-  "include": ["./", ".*.js"],
-  "exclude": ["node_modules", "build", "coverage"]
-}
+  "exclude": ["node_modules", "tmp"]

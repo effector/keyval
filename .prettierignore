@@ -1,21 +1,5 @@
-# tsconfig is formatted by CRA
-tsconfig.json
+# Add files here to ignore them from prettier formatting
 
-# Dependencies
-node_modules
-
-# Build files
-build
-coverage
-typescript
-
-# IDE
-.idea
-.vscode
-
-# Misc
-.husky
-.temp
-.npm
-.cache
-.*-cache
+/dist
+/coverage
+pnpm-lock.yaml

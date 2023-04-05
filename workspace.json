@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "core": "packages/core",
+    "react": "packages/react",
+    "core-react-demo": "apps/todo-app"
+  }
+}

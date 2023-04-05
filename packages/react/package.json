@@ -1,0 +1,8 @@
+{
+  "name": "@effector/keyval-react",
+  "version": "0.1.0",
+  "type": "commonjs",
+  "peerDependencies": {
+    "effector": "^22.5.0"
+  }
+}
