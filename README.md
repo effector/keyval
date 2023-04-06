@@ -1,25 +1,26 @@
-# CRA-Kit
+# Keyval
 
-The project was bootsrapped with `Create React App` and feature packed with
-robust code-quality tools.
+library and react binding for management list structures with ease.
 
-## Available Scripts
+## Maintains
 
-In the project directory, you can run:
+### Getting started
 
-- `yarn start` - runs the app in the dev mode
-- `yarn build` - builds the app for production
-- `yarn test` - launches the test runner
-- `yarn qa` - run code quality tools
-- `yarn fix` - fix linting errors
-- `yarn lint` - run linters
-- `yarn eslint` - run ESLint
-- `yarn stylelint` - run Stylelint
-- `yarn format` - format files with prettier
-- `yarn codestyle` - checks code style with prettier
-- `yarn deps` - search for circular dependencies
-- `yarn ts` - run TypeScrypt checks
-- `yarn ts-files` - list TypeScrypt files
-- `yarn ts-cov` - show type coverage
-- `yarn test-cov` - show test coverage
-- `yarn precommit` - run pre-commit git hooks
+- clone repo
+- install deps via `pnpm install`
+- make changes
+- make sure that your changes is passing checks:
+  - run tests via `pnpm test`
+  - run type tests via `pnpm test:types`
+  - run linter via `pnpm lint`
+  - try to build it via `pnpm build`
+  - format code via `pnpm format`
+- fill in changes via `pnpm changes`
+- open a PR
+- enjoy 🎉
+
+### Release workflow
+
+Releases of Keyval are automated by [changesets](https://github.com/changesets/changesets) and GitHub Actions. Your only duty is creating changeset for every PR, it is controlled by [Changes-action](./.github/workflows/changes.yml).
+
+After merging PR to master-branch, [Version-action](./.github/workflows/version.yml) will update special PR with the next release. To publish this release, just merge special PR and wait, [Release-action](./.github/workflows/release.yml) will publish packages.
