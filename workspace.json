@@ -2,8 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "core": "packages/core",
+    "keyval-core": "packages/core",
     "core-react-demo": "apps/todo-app",
-    "react": "packages/react"
+    "keyval-react": "packages/react"
   }
 }
