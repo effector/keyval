@@ -32,7 +32,7 @@
     "publish": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node tools/scripts/publish.mjs i18next"
+        "command": "node tools/scripts/publish.mjs keyval-core"
       },
       "dependsOn": [
         {
