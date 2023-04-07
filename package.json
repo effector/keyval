@@ -1,6 +1,6 @@
 {
-  "name": "@effector/keyval",
-  "version": "0.0.0",
+  "name": "keyval",
+  "version": "0.1.0",
   "author": "zerobias",
   "license": "MIT",
   "packageManager": "pnpm@7.28.0",

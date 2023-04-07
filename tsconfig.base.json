@@ -13,8 +13,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@effector/keyval-core": ["packages/core/index.ts"],
-      "@effector/keyval-react": ["packages/react/index.ts"]
+      "@keyval/core": ["packages/core/index.ts"],
+      "@keyval/react": ["packages/react/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

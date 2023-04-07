@@ -1,5 +1,5 @@
 import { useStoreMap } from 'effector-react';
-import type { Aggregate, PossibleKey } from '@effector/keyval-core';
+import type { Aggregate, PossibleKey } from '@keyval/core';
 
 export function useComputedField<
   Item,

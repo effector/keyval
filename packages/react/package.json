@@ -1,5 +1,5 @@
 {
-  "name": "@effector/keyval-react",
+  "name": "@keyval/react",
   "version": "0.1.0",
   "type": "commonjs",
   "peerDependencies": {

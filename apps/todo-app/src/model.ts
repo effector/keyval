@@ -6,7 +6,7 @@ import {
   createItemApi,
   createGroup,
   createComputedField,
-} from '@effector/keyval-core';
+} from '@keyval/core';
 
 import type { Todo, InputTodo, ActiveTodo } from './types';
 

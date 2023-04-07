@@ -1,7 +1,7 @@
 import { useMemo, createElement } from 'react';
 import { useEvent, useStoreMap } from 'effector-react';
 
-import type { ItemApi, IndexApi, PossibleKey } from '@effector/keyval-core';
+import type { ItemApi, IndexApi, PossibleKey } from '@keyval/core';
 import { useView } from './useView';
 
 export function useItemState<Item, Key extends PossibleKey>(
