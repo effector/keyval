@@ -1,7 +1,8 @@
-import { useMemo, createElement } from 'react';
 import { useEvent, useStoreMap } from 'effector-react';
+import { createElement, useMemo, useContext } from 'react';
 
-import type { ItemApi, IndexApi, PossibleKey } from '@keyval/core';
+import type { IndexApi, ItemApi, ListApi, PossibleKey } from '@keyval/core';
+import { ItemsContext } from './itemProvider';
 import { useView } from './useView';
 
 export function useItemState<Item, Key extends PossibleKey>(
@@ -54,3 +55,20 @@ export function useGroup<Item, ChildField extends keyof Item>(
   });
   return items.map((id, idx) => createElement(View, { id, key: idx }));
 }
+
+export const useItem = <
+  Item,
+  Key extends PossibleKey,
+  ItemTriggers extends Record<string, unknown>
+>(
+  itemOrKv: ItemApi<Item, Key, ItemTriggers> | ListApi<Item, Key>,
+  id?: Key
+) => {
+  const actualId =
+    id !== undefined ? id : useContext(ItemsContext).get(itemOrKv);
+  const state = useItemState(actualId, itemOrKv);
+  // @ts-expect-error TODO: Replace with real kv check
+  const api = itemOrKv.kv ? useItemApi(actualId, itemOrKv) : {};
+
+  return [state, api] as const;
+};

@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -10,5 +11,11 @@
     "declaration": true
   },
   "files": [],
-  "include": ["**/*.js", "**/*.ts"]
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/itemProvider.tsx"
+  ]
 }
