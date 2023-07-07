@@ -1,5 +1,5 @@
 import { combine } from 'effector';
-import type { Aggregate, ListApi, Selection, PossibleKey } from './types';
+import type { Aggregate, ListApi, PossibleKey, SelectionApi } from './types';
 
 import { createGroup } from './createGroup';
 
@@ -20,7 +20,7 @@ export function createComputedField<
   aggregateField: AggregateField;
   fn: (items: Item[], groupID: Item[AggregateField]) => Aggregation;
   when?: (item: Item, groupID: Item[AggregateField]) => boolean;
-  selection?: Selection<Item, Key>;
+  selection?: SelectionApi<Item, Key>;
   defaultValue: Aggregation;
 }): Aggregate<Item, Key, AggregateField, Aggregation> {
   const index = selection

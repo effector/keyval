@@ -4,5 +4,8 @@
   "type": "commonjs",
   "peerDependencies": {
     "effector": "^22.5.0"
+  },
+  "dependencies": {
+    "ts-toolbelt": "^9.6.0"
   }
 }
