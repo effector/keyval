@@ -1,20 +1,20 @@
 import { NoInfer, combine } from "effector";
 import { Compute } from "ts-toolbelt/out/Any/Compute";
 import { createMap } from "./createMap";
-import { ListApi, Mapping, PossibleKey, Selection } from "./types";
+import { ListApi, MappingApi, PossibleKey, SelectionApi } from "./types";
 
 type ValueByType<T, U extends keyof T> = {
   [P in U]: { type: P; value: T[P] }
 }[U]
 
 export const grabItems = <Item, Key extends PossibleKey, Shape>(
-  kv: ListApi<Item, Key> | Selection<Item, Key> | Mapping<Item, Key>,
+  kv: ListApi<Item, Key> | SelectionApi<Item, Key> | MappingApi<Item, Key>,
   config: {
     source: {
       [ShapeKey in keyof Shape]:
         | ListApi<Shape[ShapeKey], string>
-        | Selection<Shape[ShapeKey], string>
-        | Mapping<Shape[ShapeKey], string>
+        | SelectionApi<Shape[ShapeKey], string>
+        | MappingApi<Shape[ShapeKey], string>
     }
     filter: NoInfer<{
       [ShapeKey in keyof Shape]: (entry: Shape[ShapeKey], item: Item) => boolean

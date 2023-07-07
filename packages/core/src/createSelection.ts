@@ -1,10 +1,10 @@
 import { combine, createEvent, createStore, Event, sample, Source, split, Store } from 'effector'
 
 import { createConsumerPort, getConsumerId } from './consumerPort'
-import type { ListApi, PossibleKey, Selection, SelectionItem, SwitchSelection } from './types'
+import type { ListApi, PossibleKey, SelectionApi, SelectionItem, SwitchSelection } from './types'
 import { areObjectsDifferent, filterObj, forIn } from './utils'
 
-export function createSwitch<Shape extends { [k: string]: Selection<any, any> }>({
+export function createSwitch<Shape extends { [k: string]: SelectionApi<any, any> }>({
   cases,
   initialCase,
 }: {
@@ -89,7 +89,7 @@ export function createSelection<
       | ((item: Item, source: SourceState) => item is SelectedItem)
       | ((item: Item, source: SourceState) => boolean)
   },
-): Selection<SelectedItem, any> {
+): SelectionApi<SelectedItem, any> {
   // @ts-expect-error If source is not provided, type doesn't matter
   const source: Store<SourceState> = config.source ?? createStore<SourceState>(null)
   // const port = createConsumerPort()

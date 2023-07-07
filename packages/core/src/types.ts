@@ -18,7 +18,7 @@ export type ListApi<Item, Key extends PossibleKey> = {
   removeItem<ChildField extends keyof Item>(config: {
     removeChilds: {
       childField: ChildField;
-      selection?: Selection<Item, Key>;
+      selection?: SelectionApi<Item, Key>;
     };
   }): Event<{ key: Key }>;
   addItem<Params>(config: { fn: (params: Params) => Item }): Event<Params>;
@@ -54,11 +54,11 @@ export type ListApi<Item, Key extends PossibleKey> = {
 
 type Events<T extends { [key: string]: any }> = { [K in keyof T]: Event<T[K]> };
 type Stores<T extends { [key: string]: any }> = { [K in keyof T]: Store<T[K]> };
-export type SelectionItem<S> = S extends Selection<infer Item, any>
+export type SelectionItem<S> = S extends SelectionApi<infer Item, any>
   ? Item
   : never;
 
-export type Selection<Item, Key extends PossibleKey> = {
+export type SelectionApi<Item, Key extends PossibleKey> = {
   kv: ListApi<Item, Key>
   state: Stores<{
     store: { ref: Record<Key, Item> }
@@ -71,7 +71,7 @@ export type Selection<Item, Key extends PossibleKey> = {
   }
 }
 
-export type Mapping<Item, Key extends PossibleKey> = {
+export type MappingApi<Item, Key extends PossibleKey> = {
   state: Stores<{
     store: { ref: Record<Key, Item> }
   }>
@@ -92,8 +92,8 @@ export type ConsumerPort = {
 };
 
 export interface SwitchSelection<
-  Shape extends Record<string, Selection<any, any>>
-> extends Selection<SelectionItem<Shape[keyof Shape]>, any> {
+  Shape extends Record<string, SelectionApi<any, any>>
+> extends SelectionApi<SelectionItem<Shape[keyof Shape]>, any> {
   api: { [K in keyof Shape]: Event<void> };
   cases: Shape;
   state: Stores<{
@@ -134,7 +134,7 @@ export type Aggregate<
   config: {
     aggregateField: AggregateField;
     fn: (items: Item[], groupID: Item[AggregateField]) => Aggregation;
-    selection?: Selection<Item, Key>;
+    selection?: SelectionApi<Item, Key>;
     when?: (item: Item, groupID: Item[AggregateField]) => boolean;
     defaultValue: Aggregation;
   };

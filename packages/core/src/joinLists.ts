@@ -1,5 +1,5 @@
 import { combine } from "effector"
-import { ListApi, Mapping, PossibleKey, Selection } from "./types"
+import { ListApi, MappingApi, PossibleKey, SelectionApi } from "./types"
 
 /** Takes `kv` KV. Takes `join` KV. Returns `{ [kvId]: JoinItem[] }`, where `JoinItem[]` is array of items filtered by `fn` and sorted through by `orderBy` */
 export const joinLists = <
@@ -8,11 +8,11 @@ export const joinLists = <
   JoinItem,
   JoinKey extends PossibleKey,
 >(config: {
-  kv: ListApi<Item, ItemKey> | Selection<Item, ItemKey> | Mapping<Item, ItemKey>
-  join: ListApi<JoinItem, JoinKey> | Selection<JoinItem, JoinKey> | Mapping<JoinItem, JoinKey>
+  kv: ListApi<Item, ItemKey> | SelectionApi<Item, ItemKey> | MappingApi<Item, ItemKey>
+  join: ListApi<JoinItem, JoinKey> | SelectionApi<JoinItem, JoinKey> | MappingApi<JoinItem, JoinKey>
   orderBy?: (joinedItemA: JoinItem, joinedItemB: JoinItem, itemA: Item) => number
   fn: (joinedItem: JoinItem, item: Item) => boolean
-}): Mapping<JoinItem[], ItemKey> => {
+}): MappingApi<JoinItem[], ItemKey> => {
   const { kv, join, orderBy, fn } = config
   const $store = combine(kv.state.store, join.state.store, (kv, joined) => {
     const joinedEntries = Object.entries(joined.ref) as [JoinKey, JoinItem][]

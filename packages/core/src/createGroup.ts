@@ -1,5 +1,5 @@
-import type { ListApi, Selection, IndexApi, PossibleKey } from './types';
 import { addAlwaysActivatedConsumer } from './consumerPort';
+import type { IndexApi, ListApi, PossibleKey, SelectionApi } from './types';
 
 export function createGroup<
   Item,
@@ -7,7 +7,7 @@ export function createGroup<
   Field extends keyof Item
 >(args: {
   field: Field;
-  selection: Selection<Item, Key>;
+  selection: SelectionApi<Item, Key>;
 }): IndexApi<Item, Key, Field>;
 export function createGroup<
   Item,
@@ -25,7 +25,7 @@ export function createGroup<
 }: {
   kv?: ListApi<Item, Key>;
   field: Field;
-  selection?: Selection<Item, Key>;
+  selection?: SelectionApi<Item, Key>;
 }): IndexApi<Item, Key, Field> {
   if (!kv && !selection) {
     throw new Error(`Can't create index without kv or selection`);

@@ -1,8 +1,8 @@
-import { createStore, createEvent, sample } from 'effector';
+import { createEvent, createStore, sample } from 'effector';
 
-import { filterObj, arrifyIterate } from './utils';
-import type { PossibleKey, ListApi, Selection } from './types';
 import { createGroup } from './createGroup';
+import type { ListApi, PossibleKey, SelectionApi } from './types';
+import { arrifyIterate, filterObj } from './utils';
 
 export function createListApi<Item, Key extends PossibleKey>({
   keygen,
@@ -98,7 +98,7 @@ export function createListApi<Item, Key extends PossibleKey>({
     removeItem<ChildField extends keyof Item>(config?: {
       removeChilds: {
         childField: ChildField;
-        selection?: Selection<Item, Key>;
+        selection?: SelectionApi<Item, Key>;
       };
     }) {
       if (!config) {
