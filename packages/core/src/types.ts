@@ -66,6 +66,15 @@ export type Selection<Item, Key extends PossibleKey> = {
   port: ConsumerPort;
 };
 
+
+
+export type Mapping<Item, Key extends PossibleKey> = {
+  state: Stores<{
+    store: { ref: Record<Key, Item> }
+  }>
+}
+
+
 export type ConsumerPort = {
   state: Stores<{
     active: boolean;
