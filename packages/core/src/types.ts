@@ -1,4 +1,4 @@
-import type { Event, Store } from 'effector';
+import type { Event, Source, Store } from 'effector';
 
 export type PossibleKey = string | number;
 
@@ -59,21 +59,23 @@ export type SelectionItem<S> = S extends Selection<infer Item, any>
   : never;
 
 export type Selection<Item, Key extends PossibleKey> = {
+  kv: ListApi<Item, Key>
   state: Stores<{
-    items: Record<Key, Item>;
-    size: number;
-  }>;
-  port: ConsumerPort;
-};
-
-
+    store: { ref: Record<Key, Item> }
+    size: number
+  }>
+  port: ConsumerPort
+  config: {
+    source: Source<any> | void
+    fn: (item: Item, source: any) => boolean
+  }
+}
 
 export type Mapping<Item, Key extends PossibleKey> = {
   state: Stores<{
     store: { ref: Record<Key, Item> }
   }>
 }
-
 
 export type ConsumerPort = {
   state: Stores<{
