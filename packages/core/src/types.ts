@@ -3,54 +3,61 @@ import type { Event, Source, Store } from 'effector';
 export type PossibleKey = string | number;
 
 export type ListApi<Item, Key extends PossibleKey> = {
+  setItemField<Path extends keyof Item>(path: Path): Event<{ key: Key; value: Item[Path] }>
   setItemField<Path extends keyof Item>(
-    path: Path
-  ): Event<{ key: Key; value: Item[Path] }>;
-  removeItemsByField(match: keyof Item): Event<void>;
-  setAll<Path extends keyof Item>(match: Path): Event<Item[Path]>;
-  mapItem(
-    fn: (value: Item, payload: undefined) => Partial<Item>
-  ): Event<{ key: Key }>;
-  mapItem<T>(
-    fn: (value: Item, payload: T) => Partial<Item>
-  ): Event<{ key: Key; value: T }>;
-  removeItem(): Event<{ key: Key }>;
+    path: Path,
+    cb: (item: Item, payload: void) => Item[Path],
+  ): Event<{ key: Key }>
+  setItemField<Path extends keyof Item, Payload>(
+    path: Path,
+    cb: (item: Item, payload: Payload) => Item[Path],
+  ): Event<{ key: Key; value: Payload }>
+  setItemField<Path extends keyof Item>(path: Path, cb: () => Item[Path]): Event<{ key: Key }>
+  removeItemsByField(match: keyof Item): Event<void>
+  setAll<Path extends keyof Item>(match: Path): Event<Item[Path]>
+  mapItem(fn: (value: Item, payload: void) => Partial<Item>): Event<{ key: Key }>
+  mapItem<T>(fn: (value: Item, payload: T) => Partial<Item>): Event<{ key: Key; value: T }>
+  removeItem(): Event<{ key: Key }>
   removeItem<ChildField extends keyof Item>(config: {
     removeChilds: {
-      childField: ChildField;
-      selection?: SelectionApi<Item, Key>;
-    };
-  }): Event<{ key: Key }>;
-  addItem<Params>(config: { fn: (params: Params) => Item }): Event<Params>;
+      childField: ChildField
+      selection?: SelectionApi<Item, Key>
+    }
+  }): Event<{ key: Key }>
+  addItem<Params>(config: { fn: (params: Params) => Item }): Event<Params>
+  addItems<Params>(config: { fn: (params: Params) => Item }): Event<Params[]>
   addItemTree<Input, RawInput = Input>(config: {
-    normalize?: (input: RawInput) => Input;
-    convertInput: (item: Input, childOf: Key | null) => Item;
-    getChilds: (item: Input) => RawInput | RawInput[] | null | undefined;
-  }): Event<RawInput[] | RawInput>;
+    normalize?: (input: RawInput) => Input
+    convertInput: (item: Input, childOf: Key | null) => Item
+    getChilds: (item: Input) => RawInput | RawInput[] | null | undefined
+  }): Event<RawInput[] | RawInput>
   config: {
-    getItem: (store: Record<Key, Item>, key: Key | [Key]) => Item; // TOOD: | undefined
-  };
+    keygen: (item: Item) => Key
+    getItem: (store: Record<Key, Item>, key: Key | [Key]) => Item // TOOD: | undefined
+  }
 
   state: Stores<{
-    store: { ref: Record<Key, Item> };
-  }>;
+    store: { ref: Record<Key, Item> }
+  }>
 
   events: Events<{
-    setAll: { key: keyof Item; value: Item[keyof Item] };
-    addItem: { key: Key; value: Item } | Array<{ key: Key; value: Item }>;
-    removeItem: { key: Key } | { key: Key }[];
+    fill: { key: Key; value: Item }[]
+    setAll: { key: keyof Item; value: Item[keyof Item] }
+    addItem: { key: Key; value: Item } | Array<{ key: Key; value: Item }>
+    addItems: { key: Key; value: Item }[]
+    removeItem: { key: Key } | { key: Key }[]
     removeWhen: {
       field: keyof {
-        [K in keyof Item]: Item[K] extends boolean ? Item[K] : never;
-      };
-    };
+        [K in keyof Item]: Item[K] extends boolean ? Item[K] : never
+      }
+    }
     mapItem: {
-      key: Key;
-      value: any;
-      fn: (value: Item, data: any) => Partial<Item>;
-    };
-  }>;
-};
+      key: Key
+      value: any
+      fn: (value: Item, data: any) => Partial<Item>
+    }
+  }>
+}
 
 type Events<T extends { [key: string]: any }> = { [K in keyof T]: Event<T[K]> };
 type Stores<T extends { [key: string]: any }> = { [K in keyof T]: Store<T[K]> };
