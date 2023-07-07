@@ -1,4 +1,4 @@
-import { Source, combine, createStore } from "effector"
+import { Source, Store, combine, createStore } from "effector"
 import { ListApi, Mapping, PossibleKey, Selection } from "./types"
 
 export const createMap = <Item, Key extends PossibleKey, MappedItem, SourceState = void>(
@@ -8,11 +8,12 @@ export const createMap = <Item, Key extends PossibleKey, MappedItem, SourceState
     fn: (item: Item, source: SourceState, key: Key) => MappedItem
   },
 ): Mapping<MappedItem, Key> => {
-  const $store = combine(api.state.store, config.source || createStore(null), ({ ref }, source) => {
-    // @ts-expect-error
+  // @ts-expect-error If source is not provided, type doesn't matter
+  const $source: Store<SourceState> =  config.source || createStore(null)
+  const $store = combine(api.state.store, $source, ({ ref }, source) => {
+    // @ts-expect-error Buildable object
     const nextRef: Record<Key, MappedItem> = {}
     for (const k in ref) {
-      // @ts-expect-error
       nextRef[k] = config.fn(ref[k], source, k)
     }
     return { ref: nextRef }
