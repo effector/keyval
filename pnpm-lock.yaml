@@ -11,11 +11,11 @@ importers:
         specifier: ^5.57.1
         version: 5.57.1(eslint@8.37.0)(typescript@4.9.5)
       effector:
-        specifier: ^22.3.0
-        version: 22.7.0
+        specifier: ^23.2.0
+        version: 23.2.0
       effector-react:
-        specifier: ^22.1.5
-        version: 22.5.1(effector@22.7.0)(react@18.2.0)
+        specifier: ^23.2.0
+        version: 23.2.0(effector@23.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -145,7 +145,7 @@ importers:
         version: 15.6.3
       postcss-normalize:
         specifier: ^10.0.1
-        version: 10.0.1(browserslist@4.21.5)(postcss@8.4.21)
+        version: 10.0.1
       prettier:
         specifier: ^2.7.1
         version: 2.8.7
@@ -175,13 +175,13 @@ importers:
         version: 0.1.2
       stylelint-config-sass-guidelines:
         specifier: ^9.0.1
-        version: 9.0.1(postcss@8.4.21)(stylelint@14.16.1)
+        version: 9.0.1(stylelint@14.16.1)
       stylelint-config-standard:
         specifier: ^26.0.0
         version: 26.0.0(stylelint@14.16.1)
       stylelint-config-xo-scss:
         specifier: ^0.15.0
-        version: 0.15.0(postcss@8.4.21)(stylelint@14.16.1)
+        version: 0.15.0(stylelint@14.16.1)
       stylelint-config-xo-space:
         specifier: ^0.16.0
         version: 0.16.0(stylelint@14.16.1)
@@ -207,17 +207,9 @@ importers:
         specifier: ^0.26.2
         version: 0.26.3(@vitest/ui@0.25.8)
 
-  packages/core:
-    dependencies:
-      effector:
-        specifier: ^22.5.0
-        version: 22.7.0
+  packages/core: {}
 
-  packages/react:
-    dependencies:
-      effector:
-        specifier: ^22.5.0
-        version: 22.7.0
+  packages/react: {}
 
 packages:
 
@@ -2371,7 +2363,7 @@ packages:
       '@nrwl/workspace': 15.6.3(eslint@8.37.0)(prettier@2.8.7)(typescript@4.9.5)
       babel-plugin-const-enum: 1.2.0(@babel/core@7.21.4)
       babel-plugin-macros: 2.8.0
-      babel-plugin-transform-typescript-metadata: 0.3.2(@babel/core@7.21.4)
+      babel-plugin-transform-typescript-metadata: 0.3.2
       chalk: 4.1.2
       fast-glob: 3.2.7
       fs-extra: 11.1.1
@@ -2382,7 +2374,6 @@ packages:
       tree-kill: 1.2.2
       tslib: 2.5.0
     transitivePeerDependencies:
-      - '@babel/traverse'
       - '@swc-node/register'
       - '@swc/core'
       - debug
@@ -2437,7 +2428,6 @@ packages:
       tslib: 2.5.0
     transitivePeerDependencies:
       - '@babel/core'
-      - '@babel/traverse'
       - '@swc-node/register'
       - '@swc/core'
       - '@types/babel__core'
@@ -2477,7 +2467,6 @@ packages:
       vite: 4.2.1(@types/node@14.18.42)
       vitest: 0.26.3(@vitest/ui@0.25.8)
     transitivePeerDependencies:
-      - '@babel/traverse'
       - '@swc-node/register'
       - '@swc/core'
       - debug
@@ -2505,7 +2494,6 @@ packages:
       tslib: 2.5.0
     transitivePeerDependencies:
       - '@babel/core'
-      - '@babel/traverse'
       - '@swc-node/register'
       - '@swc/core'
       - '@types/babel__core'
@@ -3540,16 +3528,9 @@ packages:
     resolution: {integrity: sha512-WpOrF76nUHijnNn10eBGOHZmXQC8JYRME9rOLxStOga7Av2VO53ehVFvVNImMksVtQuL2/7ZNxEgxnx7oo/3Hw==}
     dev: true
 
-  /babel-plugin-transform-typescript-metadata@0.3.2(@babel/core@7.21.4):
+  /babel-plugin-transform-typescript-metadata@0.3.2:
     resolution: {integrity: sha512-mWEvCQTgXQf48yDqgN7CH50waTyYBeP2Lpqx4nNWab9sxEpdXVeKgfj1qYI2/TgUPQtNFZ85i3PemRtnXVYYJg==}
-    peerDependencies:
-      '@babel/core': ^7
-      '@babel/traverse': ^7
-    peerDependenciesMeta:
-      '@babel/traverse':
-        optional: true
     dependencies:
-      '@babel/core': 7.21.4
       '@babel/helper-plugin-utils': 7.20.2
     dev: true
 
@@ -4559,20 +4540,20 @@ packages:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: true
 
-  /effector-react@22.5.1(effector@22.7.0)(react@18.2.0):
-    resolution: {integrity: sha512-Sy5b/sUEZoCuyoCr+SiHcgd0L+PQqnIGx+SuPCZ7MhECYxezkkeecsk0EVj9sykLL2qlEeg+rdiWvIATJgOTeA==}
+  /effector-react@23.2.0(effector@23.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-e7tWJ+lpVKJpzS0UDR2Oi/0dAfvyDYyT44CWIFzBd8aJ7u4VXqP/3RJ4GCa3sH2g8Wffx6IA3BuTUGvgeH8ypg==}
     engines: {node: '>=11.0.0'}
     peerDependencies:
-      effector: ^22.0.2
+      effector: ^23.0.0
       react: '>=16.8.0 <19.0.0'
     dependencies:
-      effector: 22.7.0
+      effector: 23.2.0
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /effector@22.7.0:
-    resolution: {integrity: sha512-C3jMCjRmU/j7Mu04q0zm45OYglQB9fYxSHNu51UrV77VDZJRs7nFmNfNiaXmgkKOnsUP4VuyE64aiSvAZWZo7g==}
+  /effector@23.2.0:
+    resolution: {integrity: sha512-TqR/e5BSfAk4ZkHOykmqPmT9Nn4fLE/BhuBiVmy2cb7Vp6in8N+xMDFhWWZAgOdQjehgt/dIVQyXuWpXh3EoZA==}
     engines: {node: '>=11.0.0'}
     dev: false
 
@@ -8122,15 +8103,12 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /postcss-browser-comments@4.0.0(browserslist@4.21.5)(postcss@8.4.21):
+  /postcss-browser-comments@4.0.0:
     resolution: {integrity: sha512-X9X9/WN3KIvY9+hNERUqX9gncsgBA25XaeR+jshHz2j8+sYyHktHw1JdKuMjeLpGktXidqDhA7b/qm1mrBDmgg==}
     engines: {node: '>=8'}
     peerDependencies:
       browserslist: '>=4'
       postcss: '>=8'
-    dependencies:
-      browserslist: 4.21.5
-      postcss: 8.4.21
     dev: true
 
   /postcss-calc@8.2.4(postcss@8.4.21):
@@ -8483,7 +8461,7 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
-  /postcss-normalize@10.0.1(browserslist@4.21.5)(postcss@8.4.21):
+  /postcss-normalize@10.0.1:
     resolution: {integrity: sha512-+5w18/rDev5mqERcG3W5GZNMJa1eoYYNGo8gB7tEwaos0ajk3ZXAI4mHGcNT47NE+ZnZD1pEpUOFLvltIwmeJA==}
     engines: {node: '>= 12'}
     peerDependencies:
@@ -8491,9 +8469,7 @@ packages:
       postcss: '>= 8'
     dependencies:
       '@csstools/normalize.css': 12.0.0
-      browserslist: 4.21.5
-      postcss: 8.4.21
-      postcss-browser-comments: 4.0.0(browserslist@4.21.5)(postcss@8.4.21)
+      postcss-browser-comments: 4.0.0
       sanitize.css: 13.0.0
     dev: true
 
@@ -8573,13 +8549,11 @@ packages:
       postcss: 7.0.39
     dev: true
 
-  /postcss-scss@4.0.6(postcss@8.4.21):
+  /postcss-scss@4.0.6:
     resolution: {integrity: sha512-rLDPhJY4z/i4nVFZ27j9GqLxj1pwxE80eAzUNRMXtcpipFYIeowerzBgG3yJhMtObGEXidtIgbUpQ3eLDsf5OQ==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.4.19
-    dependencies:
-      postcss: 8.4.21
     dev: true
 
   /postcss-selector-parser@3.1.2:
@@ -9865,15 +9839,14 @@ packages:
       stylelint: 14.16.1
     dev: true
 
-  /stylelint-config-sass-guidelines@9.0.1(postcss@8.4.21)(stylelint@14.16.1):
+  /stylelint-config-sass-guidelines@9.0.1(stylelint@14.16.1):
     resolution: {integrity: sha512-N06PsVsrgKijQ3YT5hqKA7x3NUkgELTRI1cbWMqcYiCGG6MjzvNk6Cb5YYA1PrvrksBV76BvY9P9bAswojVMqA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     peerDependencies:
       postcss: ^8.3.3
       stylelint: ^14.0.1
     dependencies:
-      postcss: 8.4.21
-      postcss-scss: 4.0.6(postcss@8.4.21)
+      postcss-scss: 4.0.6
       stylelint: 14.16.1
       stylelint-order: 5.0.0(stylelint@14.16.1)
       stylelint-scss: 4.6.0(stylelint@14.16.1)
@@ -9888,13 +9861,13 @@ packages:
       stylelint-config-recommended: 8.0.0(stylelint@14.16.1)
     dev: true
 
-  /stylelint-config-xo-scss@0.15.0(postcss@8.4.21)(stylelint@14.16.1):
+  /stylelint-config-xo-scss@0.15.0(stylelint@14.16.1):
     resolution: {integrity: sha512-X9WD8cDofWFWy3uaKdwwm+DjEvgI/+h7AtlaPagkhNAeOWH/GFQoeciBvNvyJ8tB1p00SoIzCn2IIOIKXCbxYA==}
     engines: {node: '>=12'}
     peerDependencies:
       stylelint: '>=14.5.1'
     dependencies:
-      postcss-scss: 4.0.6(postcss@8.4.21)
+      postcss-scss: 4.0.6
       stylelint: 14.16.1
       stylelint-config-xo: 0.21.1(stylelint@14.16.1)
       stylelint-scss: 4.6.0(stylelint@14.16.1)

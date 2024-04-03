@@ -1,32 +1,32 @@
-import type { Event, Store } from 'effector';
+import type { EventCallable, Store } from 'effector';
 
 export type PossibleKey = string | number;
 
 export type ListApi<Item, Key extends PossibleKey> = {
   setItemField<Path extends keyof Item>(
     path: Path
-  ): Event<{ key: Key; value: Item[Path] }>;
-  removeItemsByField(match: keyof Item): Event<void>;
-  setAll<Path extends keyof Item>(match: Path): Event<Item[Path]>;
+  ): EventCallable<{ key: Key; value: Item[Path] }>;
+  removeItemsByField(match: keyof Item): EventCallable<void>;
+  setAll<Path extends keyof Item>(match: Path): EventCallable<Item[Path]>;
   mapItem(
     fn: (value: Item, payload: undefined) => Partial<Item>
-  ): Event<{ key: Key }>;
+  ): EventCallable<{ key: Key }>;
   mapItem<T>(
     fn: (value: Item, payload: T) => Partial<Item>
-  ): Event<{ key: Key; value: T }>;
-  removeItem(): Event<{ key: Key }>;
+  ): EventCallable<{ key: Key; value: T }>;
+  removeItem(): EventCallable<{ key: Key }>;
   removeItem<ChildField extends keyof Item>(config: {
     removeChilds: {
       childField: ChildField;
       selection?: Selection<Item, Key>;
     };
-  }): Event<{ key: Key }>;
-  addItem<Params>(config: { fn: (params: Params) => Item }): Event<Params>;
+  }): EventCallable<{ key: Key }>;
+  addItem<Params>(config: { fn: (params: Params) => Item }): EventCallable<Params>;
   addItemTree<Input, RawInput = Input>(config: {
     normalize?: (input: RawInput) => Input;
     convertInput: (item: Input, childOf: Key | null) => Item;
     getChilds: (item: Input) => RawInput | RawInput[] | null | undefined;
-  }): Event<RawInput[] | RawInput>;
+  }): EventCallable<RawInput[] | RawInput>;
   config: {
     getItem: (store: Record<Key, Item>, key: Key | [Key]) => Item; // TOOD: | undefined
   };
@@ -52,7 +52,7 @@ export type ListApi<Item, Key extends PossibleKey> = {
   }>;
 };
 
-type Events<T extends { [key: string]: any }> = { [K in keyof T]: Event<T[K]> };
+type Events<T extends { [key: string]: any }> = { [K in keyof T]: EventCallable<T[K]> };
 type Stores<T extends { [key: string]: any }> = { [K in keyof T]: Store<T[K]> };
 export type SelectionItem<S> = S extends Selection<infer Item, any>
   ? Item
@@ -83,7 +83,7 @@ export type ConsumerPort = {
 export interface SwitchSelection<
   Shape extends Record<string, Selection<any, any>>
 > extends Selection<SelectionItem<Shape[keyof Shape]>, any> {
-  api: { [K in keyof Shape]: Event<void> };
+  api: { [K in keyof Shape]: EventCallable<void> };
   cases: Shape;
   state: Stores<{
     items: Record<any, SelectionItem<Shape[keyof Shape]>>;
@@ -99,7 +99,7 @@ export type ItemApi<
 > = {
   kv: ListApi<Item, Key>;
   api: {
-    [K in keyof ItemTriggers]: Event<{ key: Key; value: ItemTriggers[K] }>;
+    [K in keyof ItemTriggers]: EventCallable<{ key: Key; value: ItemTriggers[K] }>;
   };
 };
 
