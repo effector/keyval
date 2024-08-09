@@ -1,5 +1,9 @@
 # Keyval
 
+## !! Warning
+
+This library was an experimental solution before we decided to develop proper models (will be released in effector 24), this library indented only for learning purposes
+
 library and react binding for management list structures with ease.
 
 ## Maintains
