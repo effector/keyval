@@ -2,7 +2,7 @@ import {
   combine,
   createStore,
   createEvent,
-  Event,
+  EventCallable,
   sample,
   split,
 } from 'effector';
@@ -31,7 +31,7 @@ export function createSwitch<
 
   const port = createConsumerPort();
   const $currentCase = createStore(initialCase);
-  const caseApi = {} as { [K in ShapeCase]: Event<void> };
+  const caseApi = {} as { [K in ShapeCase]: EventCallable<void> };
   const selectionActivation = createEvent<ShapeCase>();
 
   forIn(cases, (selection, field) => {

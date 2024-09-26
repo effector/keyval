@@ -20,8 +20,8 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
-    "effector": "^22.3.0",
-    "effector-react": "^22.1.5",
+    "effector": "^23.2.0",
+    "effector-react": "^23.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

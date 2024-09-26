@@ -66,6 +66,7 @@ export const useItem = <
 ) => {
   const actualId =
     id !== undefined ? id : useContext(ItemsContext).get(itemOrKv);
+  // @ts-expect-error TODO: Replace with real kv check
   const state = useItemState(actualId, itemOrKv);
   // @ts-expect-error TODO: Replace with real kv check
   const api = itemOrKv.kv ? useItemApi(actualId, itemOrKv) : {};
